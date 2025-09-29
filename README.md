@@ -1,4 +1,4 @@
-# React JWT Auth Template
+# SkillSwap - Front End
 
 ## About
 
