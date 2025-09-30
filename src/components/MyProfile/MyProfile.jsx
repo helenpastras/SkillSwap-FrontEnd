@@ -26,8 +26,10 @@ const MyProfile = ({ mySkills }) => {
                                 <div>
                                 Category: {skill.category}, 
                                 Time Requirement: {skill.timeFrame}, 
-                                Level of Expertise: {skill.skillLevel}
+                                Level of Expertise: {skill.skillLevel},
+                                Description;{skill.description}
                                 </div>
+                                <button>Add offered skill</button>
                             </li>
                         ))}
                     </ul>
@@ -47,6 +49,7 @@ const MyProfile = ({ mySkills }) => {
                                 Time Requirement: {skill.timeFrame}, 
                                 Level of Expertise: {skill.skillLevel}
                                 </div>
+                                <button>Add wanted skill</button>
                             </li>
                         ))}
                     </ul>
