@@ -2,23 +2,28 @@ import { useContext, useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router';
 
 import NavBar from './components/NavBar/NavBar';
+import Dashboard from './components/Dashboard/Dashboard';
+import Landing from './components/Landing/Landing';
 import SignUpForm from './components/SignUpForm/SignUpForm';
 import SignInForm from './components/SignInForm/SignInForm';
-import Landing from './components/Landing/Landing';
-import Dashboard from './components/Dashboard/Dashboard';
-import UsersIndex from './components/UsersIndex/UsersIndex';
 import MyProfile from './components/MyProfile/MyProfile';
-
+import UsersIndex from './components/UsersIndex/UsersIndex';
+import SwapRequests from './components/SwapRequests/SwapRequests'
 
 import * as skillService from "./services/skillService"
 
 import { UserContext } from './contexts/UserContext';
 
 const App = () => {
-  const { user } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
 
   const [userSkills, setUserSkills] = useState([])
   const [mySkills, setMySkills] = useState([])
+
+  const handleSignOut = () => {
+    localStorage.removeItem('token');
+    setUser(null);
+  };  
 
   useEffect(() => {
     const fetchAllUserSkills = async () => {
@@ -38,15 +43,18 @@ const App = () => {
   
   return (
     <>
-      <NavBar/>
+      <NavBar user={user} handleSignOut={handleSignOut} />
       <Routes>
         {user ? (
           <>
           {/* Routes if there is user */}
-            <Route path='/' element={<Dashboard />} />
-            <Route path="/skills/my-skills" element={<MyProfile mySkills={mySkills} />} />
+            <Route path="/" element={<Dashboard />} />
             <Route path="/skills" element={<UsersIndex userSkills={userSkills} />} />
-          </>
+            <Route path="/skills/my-skills" element={<MyProfile mySkills={mySkills} />} />
+
+              <Route path="/profile" element={<MyProfile mySkills={mySkills} />} />
+              <Route path="/profile/swap-requests" element={<SwapRequests />} />
+    </>
         ) : ( 
           <>
           {/* Routes if there is no user */}
