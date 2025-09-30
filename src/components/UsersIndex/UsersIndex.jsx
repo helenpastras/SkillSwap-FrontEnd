@@ -1,0 +1,33 @@
+
+const UsersIndex = (props) => {
+
+    return (
+        <>
+        <h1> All Users - Browse Skills </h1>
+            <main>
+                {props.userSkills.map((user) => (
+                    <section key={user._id}>
+                        <h3>{user.username}</h3>
+                        {user.skillsOffered.length ? (
+                        <ul>
+                            {user.skillsOffered.map(skill => (
+                                <li key={skill._id}>
+                                    <strong>{skill.skillName}</strong>
+                                    <div>
+                                    {skill.category}, {skill.skillLevel}, {skill.timeFrame}
+                                    </div>
+                                </li>
+                            ))}
+                        </ul>
+                        ) : (
+                            <p>No skills offered yet!</p>
+                        )}
+                    </section>
+                ))}
+            </main>
+        </>
+    )
+}
+
+export default UsersIndex
+
