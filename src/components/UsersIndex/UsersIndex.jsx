@@ -1,12 +1,13 @@
+import { Link } from "react-router"
 
-const UsersIndex = (props) => {
+const UsersIndex = ({ userSkills }) => {
 
     return (
         <>
         <h1> All Users - Browse Skills </h1>
             <main>
-                {props.userSkills.map((user) => (
-                    <section key={user._id}>
+                {userSkills.map((user) => (
+                    <Link key={user._id} to={`/users/${user._id}`}>
                         <h3>{user.username}</h3>
                         {user.skillsOffered.length ? (
                         <ul>
@@ -22,7 +23,7 @@ const UsersIndex = (props) => {
                         ) : (
                             <p>No skills offered yet!</p>
                         )}
-                    </section>
+                    </Link>
                 ))}
             </main>
         </>

@@ -11,6 +11,18 @@ const userIndex = async () => {
     }
 }
 
+const myProfileIndex = async () => {
+    try {
+        const res = await fetch(`${BASE_URL}/my-skills`, {
+            headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
+        })
+        return res.json()
+    } catch (err) {
+        console.log(err)
+    }
+}
+
 export {
     userIndex,
+    myProfileIndex,
 }
