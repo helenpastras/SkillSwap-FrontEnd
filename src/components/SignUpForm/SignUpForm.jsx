@@ -13,9 +13,11 @@ const SignUpForm = () => {
     username: '',
     password: '',
     passwordConf: '',
+    name: '', 
+    location: ''
   });
 
-  const { username, password, passwordConf } = formData;
+  const { username, password, passwordConf, name, location } = formData;
 
   const handleChange = (evt) => {
     setMessage('');
@@ -46,7 +48,7 @@ const SignUpForm = () => {
           <label htmlFor='username'>Username:</label>
           <input
             type='text'
-            id='name'
+            id='username'
             value={username}
             name='username'
             onChange={handleChange}
@@ -75,6 +77,24 @@ const SignUpForm = () => {
             required
           />
         </div>
+        <label htmlFor='name'>Name:</label>
+          <input
+            type='text'
+            id='name'
+            value={name}
+            name='name'
+            onChange={handleChange}
+            required
+          />
+          <label htmlFor='location'>Location:</label>
+          <input
+            type='text'
+            id='location'
+            value={location}
+            name='location'
+            onChange={handleChange}
+            required
+          />
         <div>
           <button disabled={isFormInvalid()}>Sign Up</button>
           <button onClick={() => navigate('/')}>Cancel</button>
