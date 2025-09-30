@@ -1,5 +1,7 @@
 import { Link } from "react-router"
 
+// pull through userContext
+
 const UsersIndex = ({ userSkills }) => {
     console.log({userSkills})
     

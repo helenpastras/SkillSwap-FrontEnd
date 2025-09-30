@@ -8,14 +8,17 @@ const MyProfile = ({ mySkills }) => {
     console.log({mySkills})
     
     const { user } = useContext(UserContext)
+    console.log({user})
 
     const offered = mySkills.filter(skill => skill.type === "offered")
     const wanted = mySkills.filter(skill => skill.type === "wanted")
     
-
     return (
         <>
-        <h1> {user.username}'s Profile </h1>
+        <h1> My Profile </h1>
+        <h2> {user.name}</h2>
+        <h2> {user.username}</h2>
+        <h2> {user.location} </h2>
             <section>
                 <h2> Skills Offered</h2>
                 {offered.length ? (
