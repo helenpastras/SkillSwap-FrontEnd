@@ -21,6 +21,7 @@ const MyProfile = ({ mySkills }) => {
         <h2> {user.location} </h2>
             <section>
                 <h2> Skills Offered</h2>
+                <button>Add offered skill</button>
                 {offered.length ? (
                     <ul>
                         {offered.map(skill => (
@@ -32,7 +33,6 @@ const MyProfile = ({ mySkills }) => {
                                 Level of Expertise: {skill.skillLevel},
                                 Description;{skill.description}
                                 </div>
-                                <button>Add offered skill</button>
                             </li>
                         ))}
                     </ul>
@@ -42,6 +42,7 @@ const MyProfile = ({ mySkills }) => {
                 )}
 
                 <h2> Skills Wanted </h2>
+                <button>Add wanted skill</button>
                 {wanted.length ? (
                     <ul>
                         {wanted.map(skill => (
@@ -52,7 +53,6 @@ const MyProfile = ({ mySkills }) => {
                                 Time Requirement: {skill.timeFrame}, 
                                 Level of Expertise: {skill.skillLevel}
                                 </div>
-                                <button>Add wanted skill</button>
                             </li>
                         ))}
                     </ul>

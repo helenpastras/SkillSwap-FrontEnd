@@ -1,18 +1,18 @@
-import { Link } from "react-router"
+import { useContext } from "react"
 
-// pull through userContext
+import { UserContext } from "../../contexts/UserContext"
 
 const UsersIndex = ({ userSkills }) => {
     console.log({userSkills})
-    
-    // Need to separate based on skillsOffered and skillsWanted
+
+    const { user } = useContext(UserContext)
 
     return (
         <>
         <h1> All Users - Browse Skills </h1>
             <main>
                 {userSkills.map((user) => (
-                    <Link key={user._id} to={`/users/${user._id}`}>
+                    <section key={user._id} to={`/users/${user._id}`}>
                         <h2>{user.username}</h2>
                         <h4> Skills Offered </h4>
                         {user.skillsOffered.length ? (
@@ -42,10 +42,12 @@ const UsersIndex = ({ userSkills }) => {
                             ))}
                         </ul>
                         ) : (
-                            <p>No skills offered yet!</p>
+                            <p>No skills wanted yet!</p>
                         )}
-                    </Link>
+                        <button>Request Skillswap</button>
+                    </section>
                 ))}
+                
             </main>
         </>
     )
