@@ -31,6 +31,7 @@ const MyProfile = ({ mySkills }) => {
                             </li>
                         ))}
                     </ul>
+                    
                 ) : (
                     <p>No offered skills yet!</p>
                 )}
