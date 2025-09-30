@@ -42,7 +42,7 @@ const NavBar = ({ user, handleSignOut }) => {
     </ul>
   )}
 </nav>
-  );
+);
 };
 
 export default NavBar;

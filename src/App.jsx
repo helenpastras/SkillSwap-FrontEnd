@@ -7,6 +7,8 @@ import SignInForm from './components/SignInForm/SignInForm';
 import Landing from './components/Landing/Landing';
 import Dashboard from './components/Dashboard/Dashboard';
 import UsersIndex from './components/UsersIndex/UsersIndex';
+import MyProfile from './components/MyProfile/MyProfile';
+
 
 import * as skillService from "./services/skillService"
 
@@ -16,14 +18,22 @@ const App = () => {
   const { user } = useContext(UserContext);
 
   const [userSkills, setUserSkills] = useState([])
+  const [mySkills, setMySkills] = useState([])
 
   useEffect(() => {
     const fetchAllUserSkills = async () => {
       const UserSkillsData = await skillService.userIndex()
-      console.log(UserSkillsData)
       setUserSkills(UserSkillsData)
     }
     if (user) fetchAllUserSkills()
+  }, [user])
+
+  useEffect(() => {
+    const fetchMySkills = async () => {
+      const MySkillsData = await skillService.myProfileIndex()
+      setMySkills(MySkillsData)
+    }
+    if (user) fetchMySkills()
   }, [user])
   
   return (
@@ -34,6 +44,7 @@ const App = () => {
           <>
           {/* Routes if there is user */}
             <Route path='/' element={<Dashboard />} />
+            <Route path="/skills/my-skills" element={<MyProfile mySkills={mySkills} />} />
             <Route path="/skills" element={<UsersIndex userSkills={userSkills} />} />
           </>
         ) : ( 
