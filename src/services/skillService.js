@@ -1,8 +1,8 @@
 const BASE_URL = `${import.meta.env.VITE_BACK_END_SERVER_URL}/skills`
 
-const index = async () => {
+const userIndex = async () => {
     try {
-        const res = await fetch(BASE_URL, {
+        const res = await fetch(`${BASE_URL}/browse-users`, {
             headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
         })
         return res.json()
@@ -12,5 +12,5 @@ const index = async () => {
 }
 
 export {
-    index,
+    userIndex,
 }

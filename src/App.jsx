@@ -15,15 +15,15 @@ import { UserContext } from './contexts/UserContext';
 const App = () => {
   const { user } = useContext(UserContext);
 
-  const [skills, setSkills] = useState([])
+  const [userSkills, setUserSkills] = useState([])
 
   useEffect(() => {
-    const fetchAllSkills = async () => {
-      const skillsData = await skillService.index()
-      console.log(skillsData)
-      setSkills(skillsData)
+    const fetchAllUserSkills = async () => {
+      const UserSkillsData = await skillService.userIndex()
+      console.log(UserSkillsData)
+      setUserSkills(UserSkillsData)
     }
-    if (user) fetchAllSkills()
+    if (user) fetchAllUserSkills()
   }, [user])
   
   return (
@@ -34,7 +34,7 @@ const App = () => {
           <>
           {/* Routes if there is user */}
             <Route path='/' element={<Dashboard />} />
-            <Route path="/skills" element={<UsersIndex skills={skills} />} />
+            <Route path="/skills" element={<UsersIndex userSkills={userSkills} />} />
           </>
         ) : ( 
           <>
