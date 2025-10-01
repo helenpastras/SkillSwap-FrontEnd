@@ -29,15 +29,14 @@ const MyProfile = ({ mySkills }) => {
                 {offered.length ? (
                     <ul>
                         {offered.map(skill => (
-                            <li key={skill._id}>
-                                <strong> Skill: {skill.skillName} </strong>
+                           <Link key={skill._id} to={`/skills/${skill._id}`}> 
+                           <li>
+                                <strong> {skill.skillName} </strong>
                                 <div>
-                                Category: {skill.category}, 
-                                Time Requirement: {skill.timeFrame}, 
-                                Level of Expertise: {skill.skillLevel},
-                                Description;{skill.description}
+                                {skill.category}
                                 </div>
                             </li>
+                            </Link>
                         ))}
                     </ul>
                     
@@ -50,14 +49,14 @@ const MyProfile = ({ mySkills }) => {
                 {wanted.length ? (
                     <ul>
                         {wanted.map(skill => (
-                            <li key={skill._id}>
-                                <strong> Skill: {skill.skillName} </strong>
+                            <Link key={skill._id} to={`/skills/${skill._id}`}> 
+                            <li>
+                                <strong> {skill.skillName} </strong>
                                 <div>
-                                Category: {skill.category}, 
-                                Time Requirement: {skill.timeFrame}, 
-                                Level of Expertise: {skill.skillLevel}
+                                {skill.category}
                                 </div>
                             </li>
+                            </Link>
                         ))}
                     </ul>
                 ) : (

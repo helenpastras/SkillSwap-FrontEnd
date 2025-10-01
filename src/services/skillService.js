@@ -38,8 +38,35 @@ const createSkill = async (skillFormData) => {
     }
 
 }
+
+const showSkill = async (skillId) => {
+    try {
+        const res = await fetch(`${BASE_URL}/${skillId}`, {
+            headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+        })
+        return res.json()
+    } catch (err) {
+        console.log(err)
+    }
+}
+
+const deleteSkill = async (skillId) => {
+    try {
+        const res = await fetch(`${BASE_URL}/${skillId}`, {
+            method: "DELETE",
+            headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+        })
+        return res.json()
+    } catch (err) {
+        console.log(err)
+    }
+}
+
+
 export {
     userIndex,
     myProfileIndex,
     createSkill,
+    showSkill,
+    deleteSkill,
 }

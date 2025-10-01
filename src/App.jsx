@@ -9,6 +9,7 @@ import Landing from './components/Landing/Landing';
 import SignUpForm from './components/SignUpForm/SignUpForm';
 import SignInForm from './components/SignInForm/SignInForm';
 import MyProfile from './components/MyProfile/MyProfile';
+import SkillDetails from './components/MyProfile/SkillDetails.jsx';
 import UsersIndex from './components/UsersIndex/UsersIndex';
 import SwapRequest from './components/SwapRequests/SwapRequests.jsx'
 import AddSkillForm from './components/MyProfile/AddSkillForm.jsx';
@@ -31,6 +32,7 @@ const App = () => {
     setUser(null);
   };  
 
+  /* ---------- HANDLING SKILLS ---------- */
   useEffect(() => {
     const fetchAllUserSkills = async () => {
       const UserSkillsData = await skillService.userIndex()
@@ -47,13 +49,23 @@ const App = () => {
     if (user) fetchMySkills()
   }, [user])
 
+  
   const handleAddSkill = async (skillFormData) => {
     // console.log("Skill Data:", skillFormData)
     const newSkill = await skillService.createSkill(skillFormData)
     setMySkills([newSkill, ...mySkills])
     navigate("/skills/my-skills")
   }
+
+  const handleDeleteSkill = async (skillId) => {
+    // console.log("deleted skill ID:", skillId)
+    const deletedSkill = await skillService.deleteSkill(skillId)
+    setMySkills(mySkills.filter((skill) => skill._id !== skillId))
+    navigate("/profile")
+  }
+
   
+  /* ---------- HANDLING SWAPS ---------- */
   const SwapRequestApp =() => {
     const { id } = useParams();
     const [recipientUser, setRecipientUser] = useState(null);
@@ -102,6 +114,7 @@ const App = () => {
             <Route path="/skills/my-skills" element={<MyProfile mySkills={mySkills} />} />
 
               <Route path="/profile" element={<MyProfile mySkills={mySkills} />} />
+              <Route path="/skills/:skillId" element={<SkillDetails handleDeleteSkill={handleDeleteSkill} />} />
               <Route path="/swap-request/:id" element={<SwapRequestApp />} />
               <Route path="/skills/new/:type" element={<AddSkillForm handleAddSkill={handleAddSkill} />} />
     </>
