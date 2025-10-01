@@ -22,7 +22,24 @@ const myProfileIndex = async () => {
     }
 }
 
+const createSkill = async (skillFormData) => {
+    try {
+        const res = await fetch(BASE_URL, {
+            method: "POST",
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(skillFormData)
+        })
+        return res.json()
+    } catch (err) {
+        console.log(err)
+    }
+
+}
 export {
     userIndex,
     myProfileIndex,
+    createSkill,
 }

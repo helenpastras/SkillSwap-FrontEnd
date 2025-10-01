@@ -3,21 +3,29 @@ import { useContext } from "react"
 
 import { UserContext } from "../../contexts/UserContext"
 
+import { Link } from "react-router"
+
 
 const MyProfile = ({ mySkills }) => {
     console.log({mySkills})
     
     const { user } = useContext(UserContext)
+    console.log({user})
+
+    
 
     const offered = mySkills.filter(skill => skill.type === "offered")
     const wanted = mySkills.filter(skill => skill.type === "wanted")
     
-
     return (
         <>
-        <h1> {user.username}'s Profile </h1>
+        <h1> My Profile </h1>
+        <h2> {user.name}</h2>
+        <h2> {user.username}</h2>
+        <h2> {user.location} </h2>
             <section>
                 <h2> Skills Offered</h2>
+                <button> <Link to={"/skills/new/offered"}> Add offered skill </Link></button>
                 {offered.length ? (
                     <ul>
                         {offered.map(skill => (
@@ -29,7 +37,6 @@ const MyProfile = ({ mySkills }) => {
                                 Level of Expertise: {skill.skillLevel},
                                 Description;{skill.description}
                                 </div>
-                                <button>Add offered skill</button>
                             </li>
                         ))}
                     </ul>
@@ -39,6 +46,7 @@ const MyProfile = ({ mySkills }) => {
                 )}
 
                 <h2> Skills Wanted </h2>
+                <button> <Link to={"/skills/new/wanted"}> Add wanted skill </Link></button>
                 {wanted.length ? (
                     <ul>
                         {wanted.map(skill => (
@@ -49,7 +57,6 @@ const MyProfile = ({ mySkills }) => {
                                 Time Requirement: {skill.timeFrame}, 
                                 Level of Expertise: {skill.skillLevel}
                                 </div>
-                                <button>Add wanted skill</button>
                             </li>
                         ))}
                     </ul>

@@ -1,12 +1,15 @@
 import { Link } from "react-router"
 import { useNavigate } from 'react-router';
 
+import { useContext } from "react"
+
+import { UserContext } from "../../contexts/UserContext"
 
 const UsersIndex = ({ userSkills }) => {
     const navigate = useNavigate();
     console.log({userSkills})
-    
-    // Need to separate based on skillsOffered and skillsWanted
+
+    const { user } = useContext(UserContext)
 
  return (
     <>
@@ -59,6 +62,7 @@ const UsersIndex = ({ userSkills }) => {
     </>
   );
 };
+    
 
 export default UsersIndex
 
