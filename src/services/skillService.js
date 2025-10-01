@@ -62,6 +62,22 @@ const deleteSkill = async (skillId) => {
     }
 }
 
+const updateSkill = async (skillId, skillFormData) => {
+    try {
+        const res = await fetch(`${BASE_URL}/${skillId}`, {
+            method: "PUT",
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(skillFormData),
+        })
+        return res.json()
+    } catch (err) {
+        console.log(err)
+    }
+}
+
 
 export {
     userIndex,
@@ -69,4 +85,5 @@ export {
     createSkill,
     showSkill,
     deleteSkill,
+    updateSkill,
 }
