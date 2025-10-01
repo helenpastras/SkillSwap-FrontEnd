@@ -17,7 +17,6 @@ const UsersIndex = ({ userSkills }) => {
       <main>
         {userSkills.map((user) => (
           <div key={user._id} style={{ border: '1px solid #ccc', padding: '1rem', marginBottom: '1rem' }}>
-            <Link to={`/users/${user._id}`}>
               <h2>{user.username}</h2>
               <h4>Skills Offered</h4>
               {user.skillsOffered.length ? (
@@ -50,7 +49,6 @@ const UsersIndex = ({ userSkills }) => {
               ) : (
                 <p>No skills wanted yet!</p>
               )}
-            </Link>
 
             {/* ✅ Button outside the Link */}
             <button onClick={() => navigate(`/swap-request/${user._id}`)}>
