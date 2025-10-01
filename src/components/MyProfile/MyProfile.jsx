@@ -3,12 +3,16 @@ import { useContext } from "react"
 
 import { UserContext } from "../../contexts/UserContext"
 
+import { Link } from "react-router"
+
 
 const MyProfile = ({ mySkills }) => {
     console.log({mySkills})
     
     const { user } = useContext(UserContext)
     console.log({user})
+
+    
 
     const offered = mySkills.filter(skill => skill.type === "offered")
     const wanted = mySkills.filter(skill => skill.type === "wanted")
@@ -21,7 +25,7 @@ const MyProfile = ({ mySkills }) => {
         <h2> {user.location} </h2>
             <section>
                 <h2> Skills Offered</h2>
-                <button>Add offered skill</button>
+                <button> <Link to={"/skills/new"}> Add offered skill </Link></button>
                 {offered.length ? (
                     <ul>
                         {offered.map(skill => (

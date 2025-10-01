@@ -62,51 +62,7 @@ const UsersIndex = ({ userSkills }) => {
     </>
   );
 };
-    return (
-        <>
-        <h1> All Users - Browse Skills </h1>
-            <main>
-                {userSkills.map((user) => (
-                    <section key={user._id} to={`/users/${user._id}`}>
-                        <h2>{user.username}</h2>
-                        <h4> Skills Offered </h4>
-                        {user.skillsOffered.length ? (
-                        <ul>
-                            {user.skillsOffered.map(skill => (
-                                <li key={skill._id}>
-                                    <strong>{skill.skillName}</strong>
-                                    <div>
-                                    {skill.category}, {skill.skillLevel}, {skill.timeFrame}
-                                    </div>
-                                </li>
-                            ))}
-                        </ul>
-                        ) : (
-                            <p>No skills offered yet!</p>
-                        )}
-                        <h4> Skills Wanted </h4>
-                        {user.skillsWanted.length ? (
-                        <ul>
-                            {user.skillsWanted.map(skill => (
-                                <li key={skill._id}>
-                                    <strong>{skill.skillName}</strong>
-                                    <div>
-                                    {skill.category}, {skill.skillLevel}, {skill.timeFrame}
-                                    </div>
-                                </li>
-                            ))}
-                        </ul>
-                        ) : (
-                            <p>No skills wanted yet!</p>
-                        )}
-                        <button>Request Skillswap</button>
-                    </section>
-                ))}
-                
-            </main>
-        </>
-    )
-}
+    
 
 export default UsersIndex
 

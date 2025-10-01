@@ -1,8 +1,8 @@
 
 import { useState } from 'react'
 import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router';
+import { useParams } from 'react-router';
 
 const SwapRequest = (props) => {
     const navigate = useNavigate();

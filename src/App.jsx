@@ -1,5 +1,5 @@
 import { useContext, useState, useEffect } from 'react';
-import { Routes, Route } from 'react-router';
+import { Routes, Route, useNavigate } from 'react-router';
 
 import NavBar from './components/NavBar/NavBar';
 import Dashboard from './components/Dashboard/Dashboard';
@@ -9,6 +9,7 @@ import SignInForm from './components/SignInForm/SignInForm';
 import MyProfile from './components/MyProfile/MyProfile';
 import UsersIndex from './components/UsersIndex/UsersIndex';
 import SwapRequest from './components/SwapRequests/SwapRequests.jsx'
+import OfferedSkillsForm from './components/MyProfile/OfferedSkillsForm.jsx';
 
 import * as skillService from "./services/skillService"
 
@@ -16,6 +17,8 @@ import { UserContext } from './contexts/UserContext';
 
 const App = () => {
   const { user, setUser } = useContext(UserContext);
+
+  const navigate = useNavigate()
 
   const [userSkills, setUserSkills] = useState([])
   const [mySkills, setMySkills] = useState([])
@@ -40,6 +43,13 @@ const App = () => {
     }
     if (user) fetchMySkills()
   }, [user])
+
+  const handleAddSkillOffered = async (skillOfferedFormData) => {
+    // console.log("Skill Offered Data:", skillOfferedFormData)
+    const newSkillOffered = await skillService.createSkillOffered(skillOfferedFormData)
+    setMySkills([newSkillOffered, ...mySkills])
+    navigate("/skills/my-skills")
+  }
   
   return (
     <>
@@ -54,6 +64,8 @@ const App = () => {
 
               <Route path="/profile" element={<MyProfile mySkills={mySkills} />} />
               <Route path="/swap-request/:id" element={<SwapRequest />} />
+              <Route path="/skills/new" element={<OfferedSkillsForm handleAddSkillOffered={handleAddSkillOffered} />} />
+              
     </>
         ) : ( 
           <>

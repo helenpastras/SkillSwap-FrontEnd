@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-const OfferedSkillsForm = (props) => {
+const OfferedSkillsForm = ({ handleAddSkillOffered }) => {
     const initialState = {
         skillName: '',
         category: '',
@@ -10,26 +10,24 @@ const OfferedSkillsForm = (props) => {
         type:'offered',
     }
 
-    const [formData, setFormData] = useState(
-        props.selected ? props.selected : initialState
-    )
-
+    const [formData, setFormData] = useState(initialState)
+    
     const handleChange = (evt) => {
         setFormData({ ...formData, [evt.target.name]: evt.target.value})
     }
 
     const handleSubmit = (evt) => {
         evt.preventDefault()
-        if (props.selected) {
-            // console.log("this is the form data UPDATE",formData)
-            props.handleUpdatePet(formData, props.selected._id)
-        } else {
-            props.handleAddPet(formData)
-        }
+        console.log("FormData:", formData) // testing form data populates
+        handleAddSkillOffered(formData)
+
+     
     }
     return (
+        <>
+        <h1> Skill Offered Form: </h1>
     <div>
-        <form onSubmit={handleSubmit}></form>
+        <form onSubmit={handleSubmit}>
             <label htmlFor="skillName"> Skill Name </label>
                 <input
                     id="skillName"
@@ -100,9 +98,11 @@ const OfferedSkillsForm = (props) => {
                     rows={4}
                     placeholder='Add a brief description of your skill and experience...'
                 />
-
+            <button type="submit">Submit Skill</button>
+        </form>
             
         </div>
-)};
+        </>
+)};     
 
 export default OfferedSkillsForm;
