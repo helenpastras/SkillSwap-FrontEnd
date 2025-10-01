@@ -64,8 +64,7 @@ const App = () => {
 
               <Route path="/profile" element={<MyProfile mySkills={mySkills} />} />
               <Route path="/swap-request/:id" element={<SwapRequest />} />
-              <Route path="/skills/new" element={<OfferedSkillsForm handleAddSkillOffered={handleAddSkillOffered} />} />
-              
+              <Route path="/skills/new/:type" element={<OfferedSkillsForm handleAddSkillOffered={handleAddSkillOffered} />} />
     </>
         ) : ( 
           <>
