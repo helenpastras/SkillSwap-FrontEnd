@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 const SwapRequest = (props) => {
     const navigate = useNavigate();
+    const BASE_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000';
     // const { id } = useParams();
     const initialState = {
         requester: '',
@@ -35,16 +36,34 @@ const SwapRequest = (props) => {
         setFormData({ ...formData, [evt.target.name]: evt.target.value})
     }
 
-    const handleSubmit = (evt) => {
+    const handleSubmit = async (evt) => {
         evt.preventDefault()
-        if (props.selected) {
-            // console.log("this is the form data UPDATE",formData)
-            props.handleUpdatePet(formData, props.selected._id)
-        } else {
-            props.handleAddPet(formData)
+    
+        const payload = {
+            skillRequestedId: formData.skillRequested,
+            skillOfferedId: formData.skillOffered,
+            comments: formData.comments,
+            requestMessage: formData.requestMessage
+        };
+
+        try {
+            const res = await fetch(`${BASE_URL}/swap-requests`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            },
+            body: JSON.stringify(payload)
+            });
+
+            const data = await res.json();
+            console.log("Swap request sent:", data);
+            // Optional: redirect, show success banner, clear form
+        } catch (err) {
+            console.error("Error sending swap request:", err.message);
         }
     }
-    return (
+return (
     <div>
         <form onSubmit={handleSubmit}>
             <p><strong>From:</strong> {props.currentUser?.username}</p>
@@ -97,14 +116,14 @@ const SwapRequest = (props) => {
                     rows={4}
                     placeholder="Add any additional info about yourrequest and offering, for your Swap's recipient"
                 />
-            </form>
+        </form>
             <div style={{ marginTop: '1rem' }}>
                 <button type="submit">Send Request</button>
                 <button type="button" onClick={() => navigate('/skills')}>
                     Cancel
                 </button>
             </div>
-        </div>
+    </div>
         
 )};
     console.log("this is where all swap requests structure and form will live");
