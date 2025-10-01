@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 import { useParams } from 'react-router';
 
-const OfferedSkillsForm = ({ handleAddSkillOffered }) => {
+const AddSkillForm = ({ handleAddSkill }) => {
 
     const { type } = useParams()
     console.log({type})
@@ -27,7 +27,7 @@ const OfferedSkillsForm = ({ handleAddSkillOffered }) => {
     const handleSubmit = (evt) => {
         evt.preventDefault()
         console.log("FormData:", formData) // testing form data populates
-        handleAddSkillOffered(formData)
+        handleAddSkill(formData)
     }
 
     return (
@@ -168,4 +168,4 @@ const OfferedSkillsForm = ({ handleAddSkillOffered }) => {
     </>
 )};     
 
-export default OfferedSkillsForm;
+export default AddSkillForm;

@@ -11,7 +11,7 @@ import SignInForm from './components/SignInForm/SignInForm';
 import MyProfile from './components/MyProfile/MyProfile';
 import UsersIndex from './components/UsersIndex/UsersIndex';
 import SwapRequest from './components/SwapRequests/SwapRequests.jsx'
-import OfferedSkillsForm from './components/MyProfile/OfferedSkillsForm.jsx';
+import AddSkillForm from './components/MyProfile/AddSkillForm.jsx';
 
 import * as skillService from "./services/skillService"
 
@@ -47,10 +47,10 @@ const App = () => {
     if (user) fetchMySkills()
   }, [user])
 
-  const handleAddSkillOffered = async (skillOfferedFormData) => {
-    // console.log("Skill Offered Data:", skillOfferedFormData)
-    const newSkillOffered = await skillService.createSkillOffered(skillOfferedFormData)
-    setMySkills([newSkillOffered, ...mySkills])
+  const handleAddSkill = async (skillFormData) => {
+    // console.log("Skill Data:", skillFormData)
+    const newSkill = await skillService.createSkill(skillFormData)
+    setMySkills([newSkill, ...mySkills])
     navigate("/skills/my-skills")
   }
   
@@ -103,7 +103,7 @@ const App = () => {
 
               <Route path="/profile" element={<MyProfile mySkills={mySkills} />} />
               <Route path="/swap-request/:id" element={<SwapRequestApp />} />
-              <Route path="/skills/new/:type" element={<OfferedSkillsForm handleAddSkillOffered={handleAddSkillOffered} />} />
+              <Route path="/skills/new/:type" element={<AddSkillForm handleAddSkill={handleAddSkill} />} />
     </>
         ) : ( 
           <>

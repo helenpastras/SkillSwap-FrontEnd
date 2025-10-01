@@ -22,7 +22,7 @@ const myProfileIndex = async () => {
     }
 }
 
-const createSkillOffered = async (skillOfferedFormData) => {
+const createSkill = async (skillFormData) => {
     try {
         const res = await fetch(BASE_URL, {
             method: "POST",
@@ -30,7 +30,7 @@ const createSkillOffered = async (skillOfferedFormData) => {
                 Authorization: `Bearer ${localStorage.getItem('token')}`,
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(skillOfferedFormData)
+            body: JSON.stringify(skillFormData)
         })
         return res.json()
     } catch (err) {
@@ -41,5 +41,5 @@ const createSkillOffered = async (skillOfferedFormData) => {
 export {
     userIndex,
     myProfileIndex,
-    createSkillOffered,
+    createSkill,
 }
