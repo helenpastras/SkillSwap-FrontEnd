@@ -2,11 +2,11 @@
 import { useState } from 'react'
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useParams } from 'react-router-dom';
+// import { useParams } from 'react-router-dom';
 
 const SwapRequest = (props) => {
     const navigate = useNavigate();
-    const { id } = useParams();
+    // const { id } = useParams();
     const initialState = {
         requester: '',
         skillProvider: '',
@@ -57,7 +57,7 @@ const SwapRequest = (props) => {
                 <select
                     id="skillRequested"
                     name="skillRequested"
-                    value={formData.skillRequested}
+                    value={formData.skillRequested || ''}
                     onChange={handleChange}
                     required
                 >
@@ -74,17 +74,17 @@ const SwapRequest = (props) => {
                 <select
                     id="skillOffered"
                     name="skillOffered"
-                    value={formData.skillOffered}
+                    value={formData.skillOffered || ''}
                     onChange={handleChange}
                     required
                 >
                 <option value="">-- Select a skill --</option>
-                {(props.currentUserSkills
-                ?.skillOffered || []).filter(skill => skill.type ==='offered')
+                {(props.currentUserSkills || [])
+                    .filter(skill => skill.type === 'offered')
                     .map(skill => (
-                    <option key={skill._id} value={skill._id}>
+                        <option key={skill._id} value={skill._id}>
                         {skill.skillName}
-                    </option>
+                        </option>
                     ))}
                 </select>
                 
@@ -92,7 +92,7 @@ const SwapRequest = (props) => {
                 <textarea
                     id="comments"
                     name="comments"
-                    value={formData.comments}
+                    value={formData.comments || ''}
                     onChange={handleChange} 
                     rows={4}
                     placeholder="Add any additional info about yourrequest and offering, for your Swap's recipient"
@@ -105,10 +105,9 @@ const SwapRequest = (props) => {
                 </button>
             </div>
         </div>
+        
 )};
-
-    
     console.log("this is where all swap requests structure and form will live");
-
+   
 
 export default SwapRequest;

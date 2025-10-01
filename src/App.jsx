@@ -1,5 +1,6 @@
 import { useContext, useState, useEffect } from 'react';
-import { Routes, Route } from 'react-router';
+import { Routes, Route } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 import NavBar from './components/NavBar/NavBar';
 import Dashboard from './components/Dashboard/Dashboard';
@@ -19,6 +20,7 @@ const App = () => {
 
   const [userSkills, setUserSkills] = useState([])
   const [mySkills, setMySkills] = useState([])
+  const BASE_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000';
 
   const handleSignOut = () => {
     localStorage.removeItem('token');
@@ -41,6 +43,42 @@ const App = () => {
     if (user) fetchMySkills()
   }, [user])
   
+  const SwapRequestApp =() => {
+    const { id } = useParams();
+    const [recipientUser, setRecipientUser] = useState(null);
+
+    useEffect(() => {
+      const fetchRecipient = async () => {
+       
+          const res = await fetch(`${BASE_URL}/users/public/${id}`, {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+          });
+          const data = await res.json();
+          setRecipientUser({
+            ...data.user,
+            skillsOffered: data.skillsOffered,
+            skillsWanted: data.skillsWanted
+          });
+     
+      };
+      fetchRecipient();
+    }, [id]);
+    console.log("Recipient user:", recipientUser);
+
+    if (!recipientUser) return <p>Loading swap form...</p>;
+
+    return (
+      <SwapRequest
+        currentUser={user}
+        recipientUser={recipientUser}
+        currentUserSkills={mySkills}
+      />
+    );
+  };
+
+
   return (
     <>
       <NavBar user={user} handleSignOut={handleSignOut} />
@@ -53,7 +91,7 @@ const App = () => {
             <Route path="/skills/my-skills" element={<MyProfile mySkills={mySkills} />} />
 
               <Route path="/profile" element={<MyProfile mySkills={mySkills} />} />
-              <Route path="/swap-request/:id" element={<SwapRequest />} />
+              <Route path="/swap-request/:id" element={<SwapRequestApp />} />
     </>
         ) : ( 
           <>
