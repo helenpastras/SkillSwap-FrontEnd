@@ -1,12 +1,15 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 import { useParams } from 'react-router';
 
-const AddSkillForm = ({ handleAddSkill }) => {
+import * as skillService from "../../services/skillService"
+
+const AddSkillForm = ({ handleAddSkill, handleUpdateSkill }) => {
 
     const { type } = useParams()
-    console.log({type})
-
+    // console.log({type})
+    const { skillId } = useParams()
+   // console.log(skillId)
 
     const initialState = {
         skillName: '',
@@ -26,9 +29,21 @@ const AddSkillForm = ({ handleAddSkill }) => {
 
     const handleSubmit = (evt) => {
         evt.preventDefault()
-        console.log("FormData:", formData) // testing form data populates
+        // console.log("FormData:", formData) // testing form data populates
+        if (skillId) {
+            handleUpdateSkill(skillId, formData)
+        } else {
         handleAddSkill(formData)
+        }
     }
+
+    useEffect(() => {
+        const fetchSkill = async () => {
+            const skillData = await skillService.showSkill(skillId)
+            setFormData(skillData)
+        }
+        if (skillId) fetchSkill()
+    }, [skillId])
 
     return (
     <>

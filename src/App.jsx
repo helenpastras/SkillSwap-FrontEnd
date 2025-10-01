@@ -32,7 +32,7 @@ const App = () => {
     setUser(null);
   };  
 
-  /* ---------- HANDLING SKILLS ---------- */
+  /* ---------- HANDLING SKILlS ---------- */
   useEffect(() => {
     const fetchAllUserSkills = async () => {
       const UserSkillsData = await skillService.userIndex()
@@ -62,6 +62,13 @@ const App = () => {
     const deletedSkill = await skillService.deleteSkill(skillId)
     setMySkills(mySkills.filter((skill) => skill._id !== skillId))
     navigate("/profile")
+  }
+
+  const handleUpdateSkill = async (skillId, skillFormData) => {
+    // console.log("skillId:", skillId, "skillFormData:", skillFormData)
+    const updatedSkill = await skillService.updateSkill(skillId, skillFormData)
+    setMySkills(mySkills.map((skill) => (skillId === skill._id ? updatedSkill : skill)))
+    navigate(`/skills/${skillId}`)
   }
 
   
@@ -117,6 +124,7 @@ const App = () => {
               <Route path="/skills/:skillId" element={<SkillDetails handleDeleteSkill={handleDeleteSkill} />} />
               <Route path="/swap-request/:id" element={<SwapRequestApp />} />
               <Route path="/skills/new/:type" element={<AddSkillForm handleAddSkill={handleAddSkill} />} />
+              <Route path="/skills/edit/:skillId/:type" element={<AddSkillForm handleUpdateSkill={handleUpdateSkill} />} />
     </>
         ) : ( 
           <>

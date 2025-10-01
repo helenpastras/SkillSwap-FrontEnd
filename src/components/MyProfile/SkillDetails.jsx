@@ -1,4 +1,4 @@
-import { useParams } from "react-router"
+import { useParams, Link } from "react-router"
 import { useState, useEffect, useContext } from "react"
 
 import { UserContext } from "../../contexts/UserContext"
@@ -40,7 +40,8 @@ const SkillDetails = ({ handleDeleteSkill }) => {
             </ul>
             {skill.user._id === user._id && (
                 <>
-                    <button onClick={() => handleDeleteSkill(skillId)}>Delete</button>
+                    <button><Link to={`/skills/edit/${skillId}/${skill.type}`}>Edit Skill</Link></button>
+                    <button onClick={() => handleDeleteSkill(skillId)}>Delete Skill</button>
                 </>
             )}
 
