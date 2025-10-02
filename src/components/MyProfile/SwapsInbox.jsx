@@ -6,7 +6,8 @@ import {
   getReceivedRequests,
   getSentRequests,
   acceptRequest,
-  declineRequest
+  declineRequest, 
+  updateSwapStatus
 } from '../../services/swapRequestsService';
 
 
@@ -56,6 +57,15 @@ const SwapsInbox = () => {
     }
   };
 
+  const handleStatusUpdate = async (id, newStatus) => {
+  try {
+    const res = await updateSwapStatus(id, newStatus, token);
+    setRequests(prev => prev.map(r => (r._id === id ? res.data : r)));
+  } catch (err) {
+    console.error(`Error updating status to ${newStatus}:`, err.message);
+  }
+};
+
   const renderRequestCard = (request) => (
     <div className='card' key={request._id} style={{ border: '1px solid #ccc', padding: '1rem', marginBottom: '1rem' }}>
       <p><strong>From:</strong> {request.requester?.username}</p>
@@ -65,6 +75,7 @@ const SwapsInbox = () => {
       <p><strong>Comments:</strong> {request.comments}</p>
       <p><strong>Status:</strong> {request.status}</p>
 
+      {/* Accept/Decline UI for pending requests */}
       {request.status === 'pending' && (
         <>
           <textarea
@@ -77,6 +88,15 @@ const SwapsInbox = () => {
           <button onClick={() => handleAccept(request._id)}>Accept</button>
           <button onClick={() => handleDecline(request._id)}>Decline</button>
         </>
+      )}
+
+      {/* Status update UI for accepted requests */}
+      {request.status === 'accepted' && (
+        <div style={{ marginTop: '1rem' }}>
+          <p><strong>Update Status:</strong></p>
+          <button onClick={() => handleStatusUpdate(request._id, 'in-progress')}>Mark In-Progress</button>
+          <button onClick={() => handleStatusUpdate(request._id, 'completed')}>Mark Completed</button>
+        </div>
       )}
     </div>
   );
