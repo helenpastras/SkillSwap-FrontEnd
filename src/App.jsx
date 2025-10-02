@@ -29,6 +29,8 @@ const App = () => {
   const [userSkills, setUserSkills] = useState([])
   const [mySkills, setMySkills] = useState([])
   const BASE_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000';
+  console.log(import.meta.env.VITE_BACKEND_URL);
+  console.log(BASE_URL);
 
   const handleSignOut = () => {
     localStorage.removeItem('token');
