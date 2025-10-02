@@ -6,7 +6,7 @@ import { UserProvider } from './contexts/UserContext.jsx';
 
 import App from './App.jsx';
 
-import './index.css';
+import './app.css';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
