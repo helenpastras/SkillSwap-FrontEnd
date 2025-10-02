@@ -118,7 +118,6 @@ const App = () => {
           {/* Routes if there is user */}
             <Route path="/" element={<Dashboard />} />
             <Route path="/skills" element={<UsersIndex userSkills={userSkills} />} />
-            <Route path="/skills/my-skills" element={<MyProfile mySkills={mySkills} />} />
 
               <Route path="/profile" element={<MyProfile mySkills={mySkills} />} />
               <Route path="/skills/:skillId" element={<SkillDetails handleDeleteSkill={handleDeleteSkill} />} />

@@ -44,8 +44,6 @@ const SkillDetails = ({ handleDeleteSkill }) => {
                     <button onClick={() => handleDeleteSkill(skillId)}>Delete Skill</button>
                 </>
             )}
-
-            <h2>Edit Skill</h2>
         </>
     )
 }
