@@ -16,10 +16,8 @@ const MyProfile = ({ mySkills }) => { // add profile here maybe?
     
     return (
         <>
-        <h1> My Profile </h1>
-        <h2> {user.name}</h2>
-        <h2> {user.username}</h2>
-        <h2> {user.location} </h2>
+        <h1> {user.username}'s Profile </h1>
+        <h3> {user.location} </h3>
         <p> {user.bio} </p>
             <section className="card">
                 <h2> Skills Offered</h2>

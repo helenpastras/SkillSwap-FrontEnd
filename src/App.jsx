@@ -90,10 +90,30 @@ const App = () => {
     const { id } = useParams();
     const [recipientUser, setRecipientUser] = useState(null);
 
-    useEffect(() => {
+    // useEffect(() => {
+    //   const fetchRecipient = async () => {
+       
+    //       const res = await fetch(`${BASE_URL}/users/public/${id}`, {
+    //         headers: {
+    //           Authorization: `Bearer ${localStorage.getItem('token')}`
+    //         }
+    //       });
+    //       const data = await res.json();
+    //       setRecipientUser({
+    //         ...data.user,
+    //         skillsOffered: data.skillsOffered,
+    //         skillsWanted: data.skillsWanted
+    //       });
+     
+    //   };
+    //   fetchRecipient();
+    // }, [id]);
+    // console.log("Recipient user:", recipientUser);
+
+        useEffect(() => {
       const fetchRecipient = async () => {
        
-          const res = await fetch(`${BASE_URL}/users/public/${id}`, {
+          const res = await fetch(`${BASE_URL}/users/profile/${id}`, {
             headers: {
               Authorization: `Bearer ${localStorage.getItem('token')}`
             }
