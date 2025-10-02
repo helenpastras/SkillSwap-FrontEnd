@@ -2,12 +2,15 @@
 import { useState } from 'react'
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-// import { useParams } from 'react-router-dom';
+import { useContext } from "react"
+import { UserContext } from "../../contexts/UserContext"
+
+import {createSwapRequest} from '../../services/swapRequestsService';;
 
 const SwapRequest = (props) => {
     const navigate = useNavigate();
-    const BASE_URL = import.meta.env.VITE_BACKEND_URL || 'http://localhost:3000';
-    // const { id } = useParams();
+    const { token } = useContext(UserContext);
+
     const initialState = {
         requester: '',
         skillProvider: '',
@@ -23,7 +26,7 @@ const SwapRequest = (props) => {
         props.selected ? props.selected : initialState
     )
 
-      useEffect(() => {
+        useEffect(() => {
     if (!props.selected && props.currentUser && props.recipientUser) {
       setFormData(prev => ({
         ...prev,
@@ -32,9 +35,10 @@ const SwapRequest = (props) => {
       }));
     }
   }, [props.selected, props.currentUser, props.recipientUser]);
+
     const handleChange = (evt) => {
         setFormData({ ...formData, [evt.target.name]: evt.target.value})
-    }
+    };
 
     const handleSubmit = async (evt) => {
         evt.preventDefault()
@@ -47,18 +51,9 @@ const SwapRequest = (props) => {
         };
 
         try {
-            const res = await fetch(`${BASE_URL}/swap-requests`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${localStorage.getItem('token')}`
-            },
-            body: JSON.stringify(payload)
-            });
-
-            const data = await res.json();
-            console.log("Swap request sent:", data);
-            // Optional: redirect, show success banner, clear form
+            const res = await createSwapRequest(payload, token);
+            console.log("Swap request sent:", res.data);
+        
         } catch (err) {
             console.error("Error sending swap request:", err.message);
         }
@@ -116,13 +111,13 @@ return (
                     rows={4}
                     placeholder="Add any additional info about yourrequest and offering, for your Swap's recipient"
                 />
-        </form>
             <div style={{ marginTop: '1rem' }}>
                 <button type="submit">Send Request</button>
                 <button type="button" onClick={() => navigate('/skills')}>
                     Cancel
                 </button>
             </div>
+        </form>
     </div>
         
 )};

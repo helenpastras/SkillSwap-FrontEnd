@@ -1,4 +1,3 @@
-import { Link } from "react-router"
 import { useNavigate } from 'react-router';
 
 import { useContext } from "react"
@@ -10,12 +9,14 @@ const UsersIndex = ({ userSkills }) => {
     console.log({userSkills})
 
     const { user } = useContext(UserContext)
+    const filteredUserSkills = userSkills.filter(u => u._id !== user?._id);
+    
 
  return (
     <>
       <h1>All Users – Browse Skills</h1>
       <main>
-        {userSkills.map((user) => (
+        {filteredUserSkills.map((user) => (
           <div key={user._id} style={{ border: '1px solid #ccc', padding: '1rem', marginBottom: '1rem' }}>
               <h2>{user.username}</h2>
               <h4>Skills Offered</h4>
