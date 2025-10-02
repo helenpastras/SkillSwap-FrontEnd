@@ -16,7 +16,7 @@ const UsersIndex = ({ userSkills }) => {
     <>
       <h1>All Users – Browse Skills</h1>
       <main>
-        <div className="flex-column">
+        <div className="users-grid">
           {filteredUserSkills.map((user) => (
             <div key={user._id} className="card">
               <h2>{user.username}</h2>
