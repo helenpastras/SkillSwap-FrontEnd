@@ -4,12 +4,15 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useContext } from "react"
 import { UserContext } from "../../contexts/UserContext"
+import { useParams } from 'react-router';
 
 import {createSwapRequest} from '../../services/swapRequestsService';;
 
 const SwapRequest = (props) => {
     const navigate = useNavigate();
     const { token } = useContext(UserContext);
+    const { recipientId } = useParams();
+    const [recipientUser, setRecipientUser] = useState(null);
 
     const initialState = {
         requester: '',
@@ -27,14 +30,32 @@ const SwapRequest = (props) => {
     )
 
         useEffect(() => {
-    if (!props.selected && props.currentUser && props.recipientUser) {
-      setFormData(prev => ({
-        ...prev,
-        requester: props.currentUser._id,
-        skillProvider: props.recipientUser._id
-      }));
-    }
-  }, [props.selected, props.currentUser, props.recipientUser]);
+        if (!props.selected && props.currentUser && recipientUser) {
+            setFormData(prev => ({
+            ...prev,
+            requester: props.currentUser._id,
+            skillProvider: recipientUser._id
+        }));
+        console.log(recipientUser)
+        }
+        }, [props.selected, props.currentUser, recipientUser]);
+
+        useEffect(() => {
+        const fetchRecipient = async () => {
+            try {
+            const res = await fetch(`/api/users/public/${recipientId}`);
+            const data = await res.json();
+            setRecipientUser(data);
+            
+            } catch (err) {
+            console.error("Error fetching recipient user:", err.message);
+            }
+        };
+
+        if (recipientId) {
+            fetchRecipient();
+        }
+        }, [recipientId]);
 
     const handleChange = (evt) => {
         setFormData({ ...formData, [evt.target.name]: evt.target.value})
@@ -62,7 +83,7 @@ return (
     <div>
         <form onSubmit={handleSubmit}>
             <p><strong>From:</strong> {props.currentUser?.username}</p>
-            <p><strong>To:</strong> {props.recipientUser?.username}</p>
+            <p><strong>To:</strong> {recipientUser?.username}</p>
 
             <input type="hidden" name="requester" value={formData.requester} />
             <input type="hidden" name="skillProvider" value={formData.skillProvider} />
@@ -76,7 +97,7 @@ return (
                     required
                 >
                 <option value="">-- Select a skill --</option>
-                {(props.recipientUser?.skillsOffered || []).filter(skill => skill.type === 'offered')
+                {(recipientUser?.skillsOffered || []).filter(skill => skill.type === 'offered')
                     .map(skill => (
                     <option key={skill._id} value={skill._id}>
                         {skill.skillName}
