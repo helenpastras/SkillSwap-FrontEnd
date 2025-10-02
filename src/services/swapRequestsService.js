@@ -32,3 +32,9 @@ export const declineRequest = async (id, responseMessage, token) => {
     headers: { Authorization: `Bearer ${token}` }
   });
 };
+
+export const updateSwapStatus = async (id, status, token) => {
+  return axios.put(`${BASE_URL}/swap-requests/${id}/status`, { status }, {
+    headers: { Authorization: `Bearer ${token}` }
+  });
+};
