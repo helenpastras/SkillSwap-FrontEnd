@@ -32,17 +32,21 @@ const SkillDetails = ({ handleDeleteSkill }) => {
     return (
         <>
             <h1> {skill.skillName} Details!</h1>
-            <p>added on {new Date(skill.createdAt).toLocaleDateString()}</p>
+            <p className="addedOn">added on {new Date(skill.createdAt).toLocaleDateString()}</p>
             <ul>
-                <li>Category: {skill.category}</li>
-                <li>Level of Expertise: {skill.skillLevel}</li>
-                <li>Time Frame: {skill.timeFrame}</li>
-                <li>Description: {skill.description}</li>
+                <li><strong>Category</strong>: {skill.category}</li>
+                <li><strong>Level of Expertise:</strong> {skill.skillLevel}</li>
+                {skill.type === "offered" && ( 
+                <>
+                <li><strong>Time Frame:</strong> {skill.timeFrame}</li>
+                <li><strong>Description:</strong> {skill.description}</li>
+                </>
+                )}
             </ul>
             {skill.user._id === user._id ? (
                 <>
-                    <button><Link to={`/profile`}>Back to My Skills</Link></button>
-                    <button><Link to={`/skills/edit/${skillId}/${skill.type}`}>Edit Skill</Link></button>
+                    <Link to={`/profile`} className="button">Back to My Skills</Link>
+                    <Link to={`/skills/edit/${skillId}/${skill.type}`} className="button">Edit Skill</Link>
                     <button onClick={() => handleDeleteSkill(skillId)}>Delete Skill</button>
 
                 </>

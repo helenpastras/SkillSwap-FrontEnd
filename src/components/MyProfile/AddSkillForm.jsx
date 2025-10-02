@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 
-import { useParams } from 'react-router';
+import { useParams, Link } from 'react-router';
 
 import * as skillService from "../../services/skillService"
 
@@ -123,6 +123,7 @@ const AddSkillForm = ({ handleAddSkill, handleUpdateSkill }) => {
                         placeholder='Add a brief description of your skill and experience...'
                     />
                 <button type="submit">Submit Offered Skill</button>
+                <Link to={"/profile"} className="button">Back</Link>
             </form>
         </div>
         </>
@@ -176,6 +177,8 @@ const AddSkillForm = ({ handleAddSkill, handleUpdateSkill }) => {
                     ))}
                     </select>
                 <button type="submit">Submit Wanted Skill</button>
+                <Link to={"/profile"} className="button">Back</Link>
+
             </form>
         </div>
         </>
