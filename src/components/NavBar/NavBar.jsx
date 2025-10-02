@@ -33,13 +33,13 @@ const NavBar = ({ user, handleSignOut }) => {
       </div>
 
       <li className="nav-right">
-        <button onClick={handleSignOut}>Sign Out</button>
+        <button className="signOut" onClick={handleSignOut}>Sign Out</button>
       </li>
     </ul>
   ) : (
     <ul className="main-nav">
       <li><Link to="/">Home</Link></li>
-      <li><Link to="/sign-in">Sign In</Link></li>
+      <li className="signIn"><Link to="/sign-in"> Sign In</Link></li>
       <li><Link to="/sign-up">Sign Up</Link></li>
     </ul>
   )}

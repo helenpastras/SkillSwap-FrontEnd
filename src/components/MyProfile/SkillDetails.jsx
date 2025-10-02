@@ -52,7 +52,7 @@ const SkillDetails = ({ handleDeleteSkill }) => {
                 </>
             ): (
                 <>
-                    <button><Link to={`/skills`}>Back to Browse Skills</Link></button>
+                    <Link to={`/skills`} className="button">Back to Browse Skills</Link>
                 </>
             )}
         </>
