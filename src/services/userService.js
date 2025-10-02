@@ -19,6 +19,24 @@ const index = async () => {
   }
 };
 
+
+const update = async (userId, profileFormData ) => {
+  try {
+    const res = await fetch(`${BASE_URL}/profile/${userId}`, {
+        method: "PUT",
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(profileFormData),
+      })
+        return res.json()
+  } catch (err) {
+      console.log(err)
+  }
+}
+
 export {
   index,
+  update,
 };
