@@ -6,12 +6,10 @@ import { Link } from "react-router"
 import '../../App.css';
 
 const MyProfile = ({ mySkills }) => {
-    console.log({mySkills})
+    console.log({mySkills}) // why is this not populating?
     
     const { user } = useContext(UserContext)
-    console.log({user})
-
-    
+    console.log({user}) // why is this not displaying location data?
 
     const offered = mySkills.filter(skill => skill.type === "offered")
     const wanted = mySkills.filter(skill => skill.type === "wanted")
@@ -61,8 +59,6 @@ const MyProfile = ({ mySkills }) => {
                 ) : (
                     <p>No wanted skills yet!</p>
                 )}
-
-            
             </section>
         </>
         

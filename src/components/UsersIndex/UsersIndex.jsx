@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router';
+import { useNavigate, Link } from 'react-router';
 
 import { useContext } from "react"
 
@@ -24,12 +24,14 @@ const UsersIndex = ({ userSkills }) => {
               {user.skillsOffered.length ? (
                 <ul>
                   {user.skillsOffered.map((skill) => (
-                    <li key={skill._id}>
+                    <Link key={skill._id} to={`/skills/${skill._id}`}> 
+                    <li>
                       <strong>{skill.skillName}</strong>
                       <div>
                         {skill.category}, {skill.skillLevel}, {skill.timeFrame}
                       </div>
                     </li>
+                    </Link>
                   ))}
                 </ul>
               ) : (
@@ -40,12 +42,14 @@ const UsersIndex = ({ userSkills }) => {
               {user.skillsWanted.length ? (
                 <ul>
                   {user.skillsWanted.map((skill) => (
-                    <li key={skill._id}>
+                    <Link key={skill._id} to={`/skills/${skill._id}`}>
+                    <li>
                       <strong>{skill.skillName}</strong>
                       <div>
                         {skill.category}, {skill.skillLevel}, {skill.timeFrame}
                       </div>
                     </li>
+                    </Link>
                   ))}
                 </ul>
               ) : (

@@ -55,7 +55,7 @@ const App = () => {
     // console.log("Skill Data:", skillFormData)
     const newSkill = await skillService.createSkill(skillFormData)
     setMySkills([newSkill, ...mySkills])
-    navigate("/skills/my-skills")
+    navigate("/profile")
   }
 
   const handleDeleteSkill = async (skillId) => {
@@ -119,7 +119,6 @@ const App = () => {
           {/* Routes if there is user */}
             <Route path="/" element={<Dashboard />} />
             <Route path="/skills" element={<UsersIndex userSkills={userSkills} />} />
-            <Route path="/skills/my-skills" element={<MyProfile mySkills={mySkills} />} />
 
               <Route path="/profile" element={<MyProfile mySkills={mySkills} />} />
               <Route path="/profile/swap-requests" element={<SwapsInbox />} />
