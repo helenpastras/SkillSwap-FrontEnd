@@ -9,9 +9,10 @@ import * as skillService from "../../services/skillService"
 const SkillDetails = ({ handleDeleteSkill }) => {
 
     const { skillId } = useParams()
-    // console.log("skillId:", skillId)
+    console.log("skillId:", skillId)
 
     const { user } = useContext(UserContext)
+    console.log(user)
 
     const [skill, setSkill] = useState(null)
     console.log(skill)

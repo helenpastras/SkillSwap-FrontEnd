@@ -55,7 +55,7 @@ const App = () => {
     // console.log("Skill Data:", skillFormData)
     const newSkill = await skillService.createSkill(skillFormData)
     setMySkills([newSkill, ...mySkills])
-    navigate("/skills/my-skills")
+    navigate("/profile")
   }
 
   const handleDeleteSkill = async (skillId) => {
