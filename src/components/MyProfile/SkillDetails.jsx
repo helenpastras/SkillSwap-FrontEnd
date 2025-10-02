@@ -39,10 +39,16 @@ const SkillDetails = ({ handleDeleteSkill }) => {
                 <li>Time Frame: {skill.timeFrame}</li>
                 <li>Description: {skill.description}</li>
             </ul>
-            {skill.user._id === user._id && (
+            {skill.user._id === user._id ? (
                 <>
+                    <button><Link to={`/profile`}>Back to My Skills</Link></button>
                     <button><Link to={`/skills/edit/${skillId}/${skill.type}`}>Edit Skill</Link></button>
                     <button onClick={() => handleDeleteSkill(skillId)}>Delete Skill</button>
+
+                </>
+            ): (
+                <>
+                    <button><Link to={`/skills`}>Back to Browse Skills</Link></button>
                 </>
             )}
         </>

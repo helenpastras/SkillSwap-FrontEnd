@@ -9,6 +9,7 @@ import Landing from './components/Landing/Landing';
 import SignUpForm from './components/SignUpForm/SignUpForm';
 import SignInForm from './components/SignInForm/SignInForm';
 import MyProfile from './components/MyProfile/MyProfile';
+import EditProfile from './components/MyProfile/EditProfileForm';
 import SkillDetails from './components/MyProfile/SkillDetails';
 import UsersIndex from './components/UsersIndex/UsersIndex';
 import SwapRequest from './components/SwapRequests/SwapRequests'
@@ -16,6 +17,7 @@ import AddSkillForm from './components/MyProfile/AddSkillForm';
 import SwapsInbox from './components/MyProfile/SwapsInbox';
 
 import * as skillService from "./services/skillService"
+import * as userService from "./services/userService"
 
 import { UserContext } from './contexts/UserContext';
 
@@ -32,6 +34,14 @@ const App = () => {
     localStorage.removeItem('token');
     setUser(null);
   };  
+
+  const handleUpdateProfile = async (userIndex, profileFormData) => {
+    const updatedProfile = await userService.update(userIndex, profileFormData)
+    console.log(updatedProfile)
+    setUser(updatedProfile)
+    // setProfile(updatedProfile)
+    navigate("/profile")
+  }
 
   /* ---------- HANDLING SKILlS ---------- */
   useEffect(() => {
@@ -121,6 +131,7 @@ const App = () => {
             <Route path="/skills" element={<UsersIndex userSkills={userSkills} />} />
 
               <Route path="/profile" element={<MyProfile mySkills={mySkills} />} />
+              <Route path="/profile/:userId" element={<EditProfile handleUpdateProfile={handleUpdateProfile} />} />
               <Route path="/profile/swap-requests" element={<SwapsInbox />} />
               <Route path="/skills/:skillId" element={<SkillDetails handleDeleteSkill={handleDeleteSkill} />} />
               <Route path="/swap-request/:id" element={<SwapRequestApp />} />
