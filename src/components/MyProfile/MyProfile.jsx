@@ -1,10 +1,9 @@
 
 import { useContext } from "react"
-
 import { UserContext } from "../../contexts/UserContext"
-
 import { Link } from "react-router"
 
+import '../../App.css';
 
 const MyProfile = ({ mySkills }) => {
     console.log({mySkills}) // why is this not populating?
@@ -21,8 +20,7 @@ const MyProfile = ({ mySkills }) => {
         <h2> {user.name}</h2>
         <h2> {user.username}</h2>
         <h2> {user.location} </h2>
-            <section>
-                
+            <section className="card">
                 <h2> Skills Offered</h2>
                 <button> <Link to={"/skills/new/offered"}> Add offered skill </Link></button>
                 {offered.length ? (
