@@ -33,7 +33,7 @@ const SkillDetails = ({ handleDeleteSkill }) => {
         <>
             <h1> {skill.skillName} Details!</h1>
             <p className="addedOn">added on {new Date(skill.createdAt).toLocaleDateString()}</p>
-            <ul>
+            <ul className= "card">
                 <li><strong>Category</strong>: {skill.category}</li>
                 <li><strong>Level of Expertise:</strong> {skill.skillLevel}</li>
                 {skill.type === "offered" && ( 
@@ -44,12 +44,12 @@ const SkillDetails = ({ handleDeleteSkill }) => {
                 )}
             </ul>
             {skill.user._id === user._id ? (
-                <>
+                <div className="skillButtons">
                     <Link to={`/profile`} className="button">Back to My Skills</Link>
                     <Link to={`/skills/edit/${skillId}/${skill.type}`} className="button">Edit Skill</Link>
                     <button onClick={() => handleDeleteSkill(skillId)}>Delete Skill</button>
 
-                </>
+                </div>
             ): (
                 <>
                     <Link to={`/skills`} className="button">Back to Browse Skills</Link>
