@@ -16,8 +16,9 @@ const UsersIndex = ({ userSkills }) => {
     <>
       <h1>All Users – Browse Skills</h1>
       <main>
-        {filteredUserSkills.map((user) => (
-          <div key={user._id} style={{ border: '1px solid #ccc', padding: '1rem', marginBottom: '1rem' }}>
+        <div className="flex-column">
+          {filteredUserSkills.map((user) => (
+            <div key={user._id} className="card">
               <h2>{user.username}</h2>
               <h4>Skills Offered</h4>
               {user.skillsOffered.length ? (
@@ -57,6 +58,7 @@ const UsersIndex = ({ userSkills }) => {
             </button>
           </div>
         ))}
+        </div>
       </main>
     </>
   );

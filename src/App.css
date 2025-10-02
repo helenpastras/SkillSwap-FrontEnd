@@ -6,6 +6,80 @@ body {
   color: #333;
 }
 
+/* nav styling */
+/* Main nav layout */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: #fff;
+  border-bottom: 1px solid #ccc;
+  padding: 0.75rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: 600;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+/* Horizontal nav list */
+.main-nav {
+  display: flex;
+  flex: 1;
+  justify-content: space-between;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Group center links */
+.nav-links {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex: 1;
+}
+
+.nav-right {
+  margin-left: auto;
+}
+
+/* Nav links */
+.main-nav li a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.main-nav li a:hover {
+  text-decoration: underline;
+}
+
+
+/* Profile submenu */
+.has-submenu {
+  position: relative;
+}
+
+.submenu {
+  position: absolute;
+  top: 2.5rem;
+  left: 0;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: 0.5rem;
+  list-style: none;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.submenu li {
+  margin-bottom: 0.5rem;
+}
+
+.submenu li:last-child {
+  margin-bottom: 0;
+}
+
 /* Layout helpers */
 .flex-center {
   display: flex;

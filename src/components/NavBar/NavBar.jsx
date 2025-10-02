@@ -14,11 +14,12 @@ const NavBar = ({ user, handleSignOut }) => {
     <nav>
   {user ? (
     <ul className="main-nav">
-      <li>Welcome, {user.username}</li>
-      <li><Link to="/">Home</Link></li>
-      <li><Link to="/skills">Browse Users</Link></li>
+      <li><span>Welcome, {user.username}</span></li>
 
-      <li className="has-submenu">
+      <div className="nav-links">
+        <li><Link to="/">Home</Link></li>
+        <li><Link to="/skills">Browse Users</Link></li>
+        <li className="has-submenu">
         <button type="button" onClick={handleToggleProfileMenu}>
           Profile ▾
         </button>
@@ -29,8 +30,9 @@ const NavBar = ({ user, handleSignOut }) => {
           </ul>
         )}
       </li>
+      </div>
 
-      <li>
+      <li className="nav-right">
         <button onClick={handleSignOut}>Sign Out</button>
       </li>
     </ul>

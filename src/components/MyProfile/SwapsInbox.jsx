@@ -57,7 +57,7 @@ const SwapsInbox = () => {
   };
 
   const renderRequestCard = (request) => (
-    <div key={request._id} style={{ border: '1px solid #ccc', padding: '1rem', marginBottom: '1rem' }}>
+    <div className='card' key={request._id} style={{ border: '1px solid #ccc', padding: '1rem', marginBottom: '1rem' }}>
       <p><strong>From:</strong> {request.requester?.username}</p>
       <p><strong>Requested Skill:</strong> {request.skillRequested?.skillName}</p>
       <p><strong>Offered Skill:</strong> {request.skillOffered?.skillName}</p>
