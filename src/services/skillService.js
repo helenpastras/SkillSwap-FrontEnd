@@ -1,4 +1,4 @@
-const BASE_URL = `${import.meta.env.VITE_BACK_END_SERVER_URL}/skills`
+const BASE_URL = `${import.meta.env.VITE_BACKEND_URL}/skills`
 
 const userIndex = async () => {
     try {

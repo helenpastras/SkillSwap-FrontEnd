@@ -1,7 +1,7 @@
 // src/services/swapRequestsService.js
 import axios from "axios";
 
-const BASE_URL = import.meta.env.VITE_BACK_END_SERVER_URL;
+const BASE_URL = import.meta.env.VITE_BACKEND_URL;
 
 export const createSwapRequest = async (payload, token) => {
   return axios.post(`${BASE_URL}/swap-requests`, payload, {
