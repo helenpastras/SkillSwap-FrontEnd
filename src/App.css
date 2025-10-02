@@ -8,15 +8,25 @@ body {
 
 
 /* Button styles */
-button {
+button, .button, .browseUserButton, .addSkillButton {
   background-color: #007bffb1;
   color: white;
+  font-size: 16px;
   border: none;
   padding: 0.5rem 1rem;
   margin-right: 0.5rem;
   border-radius: 4px;
   cursor: pointer;
   font-weight: bold;
+  
+}
+
+.browseUserButton {
+  margin-left: 75px;
+}
+
+.addSkillButton {
+  margin-left: 220px;
 }
 
 button:hover {
@@ -50,6 +60,12 @@ h2 {
 p {
   margin: 10px;
   padding: 10px;
+}
+
+.userLocation, .myLocation, .addedOn {
+  padding-top: 0px;
+  text-align: center;
+  font-style: italic;
 }
 /* nav styling */
 /* Main nav layout */
@@ -115,6 +131,7 @@ nav {
   padding: 0.5rem;
   list-style: none;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  width: 200px;
 }
 
 .submenu li {
@@ -176,6 +193,7 @@ nav {
 }
 
 .search-bar {
+  display: block;
   width: 100%;
   max-width: 400px;
   margin: 1rem auto;
@@ -183,4 +201,34 @@ nav {
   font-size: 1rem;
   border-radius: 6px;
   border: 1px solid #ccc;
+}
+
+/* Forms */
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+form input, select {
+    width: 250px;
+    height: 35px;
+    font-size: 18px;
+    text-align: center;
+}
+
+form textarea {
+  width: 250px;
+  height: 60px;
+}
+
+form label {
+    margin-bottom: -15px;
+}
+
+.swapForm {
+  font-size: 20px;
+  margin: 0
 }

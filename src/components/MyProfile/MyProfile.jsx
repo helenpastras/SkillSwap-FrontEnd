@@ -16,14 +16,11 @@ const MyProfile = ({ mySkills }) => { // add profile here maybe?
     
     return (
         <>
-        <h1> My Profile </h1>
-        <h2> {user.name}</h2>
-        <h2> {user.username}</h2>
-        <h2> {user.location} </h2>
-        <p> {user.bio} </p>
+        <h1> {user.username}'s Profile </h1>
+        <h3 className="myLocation"> {user.location} </h3>
             <section className="card">
                 <h2> Skills Offered</h2>
-                <button> <Link to={"/skills/new/offered"}> Add offered skill </Link></button>
+                <Link to={"/skills/new/offered"} className="addSkillButton"> Add offered skill </Link>
                 {offered.length ? (
                     <ul>
                         {offered.map(skill => (
@@ -43,7 +40,7 @@ const MyProfile = ({ mySkills }) => { // add profile here maybe?
                 )}
 
                 <h2> Skills Wanted </h2>
-                <button> <Link to={"/skills/new/wanted"}> Add wanted skill </Link></button>
+                <Link to={"/skills/new/wanted"} className="addSkillButton"> Add wanted skill </Link>
                 {wanted.length ? (
                     <ul>
                         {wanted.map(skill => (

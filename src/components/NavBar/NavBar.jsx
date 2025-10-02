@@ -25,7 +25,7 @@ const NavBar = ({ user, handleSignOut }) => {
           </span>
           {showProfileMenu && (
             <ul className="submenu">
-              <li><Link to="/profile">Profile</Link></li>
+              <li><Link to="/profile">My Skills</Link></li>
               <li><Link to="/profile/swap-requests">My SwapRequests</Link></li>
             </ul>
           )}

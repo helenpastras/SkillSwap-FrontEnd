@@ -100,6 +100,7 @@ const SwapsInbox = () => {
       )}
     </div>
   );
+  
 
   if (loading) return <p>Loading your inbox...</p>;
   if (!requests.length) return <p>No swap requests yet!</p>;

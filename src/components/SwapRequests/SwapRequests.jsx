@@ -82,9 +82,10 @@ const SwapRequest = (props) => {
     }
 return (
     <div>
+        <h1> Swap Request Form</h1>
         <form onSubmit={handleSubmit}>
-            <p><strong>From:</strong> {props.currentUser?.username}</p>
-            <p><strong>To:</strong> {recipientUser?.username}</p>
+            <p className="swapForm"><strong>From:</strong> {props.currentUser?.username}</p>
+            <p className="swapForm"><strong>To:</strong> {recipientUser?.username}</p>
 
             <input type="hidden" name="requester" value={formData.requester} />
             <input type="hidden" name="skillProvider" value={formData.skillProvider} />
@@ -131,7 +132,7 @@ return (
                     value={formData.comments || ''}
                     onChange={handleChange} 
                     rows={4}
-                    placeholder="Add any additional info about yourrequest and offering, for your Swap's recipient"
+                    placeholder="Add any additional info about your request and offering, for your Swap's recipient"
                 />
             <div style={{ marginTop: '1rem' }}>
                 <button type="submit" onClick={() => navigate("/profile/swap-requests")}>Send Request</button>
