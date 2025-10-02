@@ -22,9 +22,9 @@ const Dashboard = () => {
   }, [user]);
 
   return (
-    <main>
+    <main >
       <h1>Welcome, {user.username}</h1>
-      <p>
+      <p className='dash-land'>
         This is the dashboard page that you will see once you are logged in!
         It should just link to pages like the nav bar does
         Maybe we disable the navbar on this page?
