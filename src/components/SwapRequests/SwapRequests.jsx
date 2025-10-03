@@ -132,7 +132,7 @@ return (
                     placeholder="Add any additional info about yourrequest and offering, for your Swap's recipient"
                 />
             <div style={{ marginTop: '1rem' }}>
-                <button type="submit">Send Request</button>
+                <button type="submit" onClick={() => navigate('/profile/swap-requests')}>Send Request</button>
                 <button type="button" onClick={() => navigate('/skills')}>
                     Cancel
                 </button>
