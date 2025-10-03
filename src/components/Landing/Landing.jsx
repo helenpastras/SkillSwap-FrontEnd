@@ -1,11 +1,16 @@
 import { Link } from "react-router"
 
+import logo from '../../assets/images/SkillSwap.png'
+import img1 from '../../assets/images/SkillSwap1.png'
+import img2 from '../../assets/images/SkillSwap2.png'
+import img3 from '../../assets/images/SkillSwap3.png'
+
 const Landing = () => {
   return (
     <main className="landing">
       <header className="landing-hero">
         <img
-          src="../src/assets/Images/SkillSwap.png"
+          src={logo}
           alt="SkillSwap-logo"
           className="landing-logo"
         />
@@ -24,19 +29,19 @@ const Landing = () => {
       <section className="features">
         <div className="feature">
           <p className="feature-text">Offer your skills</p>
-          <img src="../src/assets/Images/SkillSwap1.png"/> 
+          <img src={img1}/> 
           
         </div>
 
         <div className="feature">
           <p className="feature-text">Find your match</p>
-          <img src="../src/assets/Images/SkillSwap2.png"/> 
+          <img src={img2}/> 
           
         </div>
 
         <div className="feature">
           <p className="feature-text">Swap & learn</p>
-          <img src="../src/assets/Images/SkillSwap3.png"/> 
+          <img src={img3}/> 
           
         </div>
       </section>    
