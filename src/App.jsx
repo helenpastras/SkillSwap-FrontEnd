@@ -33,6 +33,7 @@ const App = () => {
   const handleSignOut = () => {
     localStorage.removeItem('token');
     setUser(null);
+    navigate("/")
   };  
 
   /* ---------- HANDLING SKILlS ---------- */
