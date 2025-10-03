@@ -1,7 +1,7 @@
 
 import { useState } from 'react'
 import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import { useContext } from "react"
 import { UserContext } from "../../contexts/UserContext"
 import { useParams } from 'react-router';
@@ -30,15 +30,14 @@ const SwapRequest = (props) => {
     )
 
         useEffect(() => {
-        if (!props.selected && props.currentUser && recipientUser) {
-            setFormData(prev => ({
-            ...prev,
-            requester: props.currentUser._id,
-            skillProvider: recipientUser._id
-        }));
-        console.log(recipientUser)
-        }
-        }, [props.selected, props.currentUser, recipientUser]);
+    if (!props.selected && props.currentUser && recipientUser) {
+      setFormData(prev => ({
+        ...prev,
+        requester: props.currentUser._id,
+        skillProvider: recipientUser._id
+      }));
+    }
+  }, [props.selected, props.currentUser, recipientUser]);
 
         useEffect(() => {
         const fetchRecipient = async () => {
@@ -78,14 +77,12 @@ const SwapRequest = (props) => {
         } catch (err) {
             console.error("Error sending swap request:", err.message);
         }
-
     }
 return (
     <div>
-        <h1> Swap Request Form</h1>
         <form onSubmit={handleSubmit}>
-            <p className="swapForm"><strong>From:</strong> {props.currentUser?.username}</p>
-            <p className="swapForm"><strong>To:</strong> {recipientUser?.username}</p>
+            <p><strong>From:</strong> {props.currentUser?.username}</p>
+            <p><strong>To:</strong> {recipientUser?.username}</p>
 
             <input type="hidden" name="requester" value={formData.requester} />
             <input type="hidden" name="skillProvider" value={formData.skillProvider} />
@@ -99,7 +96,7 @@ return (
                     required
                 >
                 <option value="">-- Select a skill --</option>
-                {(recipientUser?.skillsOffered || []).filter(skill => skill.type === 'offered')
+                {(props.recipientUser?.skillsOffered || []).filter(skill => skill.type === 'offered')
                     .map(skill => (
                     <option key={skill._id} value={skill._id}>
                         {skill.skillName}
@@ -132,10 +129,10 @@ return (
                     value={formData.comments || ''}
                     onChange={handleChange} 
                     rows={4}
-                    placeholder="Add any additional info about your request and offering, for your Swap's recipient"
+                    placeholder="Add any additional info about yourrequest and offering, for your Swap's recipient"
                 />
             <div style={{ marginTop: '1rem' }}>
-                <button type="submit" onClick={() => navigate("/profile/swap-requests")}>Send Request</button>
+                <button type="submit">Send Request</button>
                 <button type="button" onClick={() => navigate('/skills')}>
                     Cancel
                 </button>
