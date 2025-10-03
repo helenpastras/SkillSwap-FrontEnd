@@ -6,12 +6,6 @@ import { UserContext } from '../../contexts/UserContext';
 
 import * as userService from '../../services/userService';
 
-import logo from '../../assets/images/SkillSwap.png'
-import img1 from '../../assets/images/SkillSwap1.png'
-import img2 from '../../assets/images/SkillSwap2.png'
-import img3 from '../../assets/images/SkillSwap3.png'
-
-
 const Dashboard = () => {
   const { user } = useContext(UserContext);
   const [ users, setUsers ] = useState([]);
@@ -32,7 +26,7 @@ const Dashboard = () => {
     <main className="landing">
       <header className="landing-hero">
         <img
-          src={logo}
+          src="https://imgur.com/Ri76Z2j.png"
           alt="SkillSwap-logo"
           className="landing-logo"
         />
@@ -52,19 +46,19 @@ const Dashboard = () => {
       <section className="features">
         <div className="feature">
           <p className="feature-text">Offer your skills</p>
-          <img src={img1}/> 
+          <img src="https://imgur.com/OWiFnEm.png"/> 
           
         </div>
 
         <div className="feature">
           <p className="feature-text">Find your match</p>
-          <img src={img2}/> 
+          <img src="https://imgur.com/OcrnZaY.png"/> 
           
         </div>
 
         <div className="feature">
           <p className="feature-text">Swap & learn</p>
-          <img src={img3}/> 
+          <img src="https://imgur.com/UwVM5Yr.png"/> 
           
         </div>
       </section>    
