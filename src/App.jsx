@@ -1,6 +1,7 @@
 import { useContext, useState, useEffect } from 'react';
 import { Routes, Route, useNavigate } from 'react-router';
 import { useParams } from 'react-router';
+import { useLocation } from 'react-router';
 import './App.css';
 
 import NavBar from './components/NavBar/NavBar';
@@ -79,12 +80,14 @@ const App = () => {
   /* ---------- HANDLING SWAPS ---------- */
   const SwapRequestApp =() => {
     const { id } = useParams();
-    const [recipientUser, setRecipientUser] = useState(null);
+    const location = useLocation();
+    const selectedUser = location.state?.selectedUser;
+    const [recipientUser, setRecipientUser] = useState(selectedUser || null);
 
     useEffect(() => {
-      const fetchRecipient = async () => {
-       
-          const res = await fetch(`${BASE_URL}/users/public/${id}`, {
+      if (!recipientUser || !recipientUser.username) {
+        const fetchRecipient = async () => {
+          const res = await fetch(`${BASE_URL}/users/profile/${id}`, {
             headers: {
               Authorization: `Bearer ${localStorage.getItem('token')}`
             }
@@ -95,10 +98,10 @@ const App = () => {
             skillsOffered: data.skillsOffered,
             skillsWanted: data.skillsWanted
           });
-     
-      };
-      fetchRecipient();
-    }, [id]);
+        };
+        fetchRecipient();
+      }
+    }, [id, recipientUser]);
     console.log("Recipient user:", recipientUser);
 
     if (!recipientUser) return <p>Loading swap form...</p>;

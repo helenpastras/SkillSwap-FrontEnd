@@ -47,7 +47,7 @@ const UsersIndex = ({ userSkills }) => {
               <h2>{user.username}</h2>
               <p className="userLocation">{user.location}</p>
 
-              <button className="browseUserButton" onClick={() => navigate(`/swap-request/${user._id}`)}>
+              <button className="browseUserButton" onClick={() => navigate(`/swap-request/${user._id}`, { state: { selectedUser: user } })}>
               Request SkillSwap
               </button>
 

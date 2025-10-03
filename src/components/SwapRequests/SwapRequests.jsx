@@ -4,15 +4,14 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import { useContext } from "react"
 import { UserContext } from "../../contexts/UserContext"
-import { useParams } from 'react-router';
+
 
 import {createSwapRequest} from '../../services/swapRequestsService';;
 
 const SwapRequest = (props) => {
     const navigate = useNavigate();
     const { token } = useContext(UserContext);
-    const { recipientId } = useParams();
-    const [recipientUser, setRecipientUser] = useState(null);
+    const { recipientUser } = props;
 
     const initialState = {
         requester: '',
@@ -28,33 +27,16 @@ const SwapRequest = (props) => {
     const [formData, setFormData] = useState(
         props.selected ? props.selected : initialState
     )
-
         useEffect(() => {
-    if (!props.selected && props.currentUser && recipientUser) {
-      setFormData(prev => ({
-        ...prev,
-        requester: props.currentUser._id,
-        skillProvider: recipientUser._id
-      }));
-    }
-  }, [props.selected, props.currentUser, recipientUser]);
-
-        useEffect(() => {
-        const fetchRecipient = async () => {
-            try {
-            const res = await fetch(`/api/users/public/${recipientId}`);
-            const data = await res.json();
-            setRecipientUser(data);
-            
-            } catch (err) {
-            console.error("Error fetching recipient user:", err.message);
-            }
-        };
-
-        if (recipientId) {
-            fetchRecipient();
+        if (!props.selected && props.currentUser && recipientUser) {
+        setFormData(prev => ({
+            ...prev,
+            requester: props.currentUser._id,
+            skillProvider: recipientUser._id
+        }));
         }
-        }, [recipientId]);
+        }, [props.selected, props.currentUser, recipientUser]);
+
 
     const handleChange = (evt) => {
         setFormData({ ...formData, [evt.target.name]: evt.target.value})
@@ -81,8 +63,8 @@ const SwapRequest = (props) => {
 return (
     <div>
         <form onSubmit={handleSubmit}>
-            <p><strong>From:</strong> {props.currentUser?.username}</p>
-            <p><strong>To:</strong> {recipientUser?.username}</p>
+            <p className="swapForm"><strong>From:</strong> {props.currentUser?.username}</p>
+            <p className="swapForm"><strong>To:</strong> {recipientUser?.username}</p>
 
             <input type="hidden" name="requester" value={formData.requester} />
             <input type="hidden" name="skillProvider" value={formData.skillProvider} />
