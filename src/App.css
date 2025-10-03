@@ -25,6 +25,13 @@ button, .button, .browseUserButton, .addSkillButton {
   margin-left: 75px;
 }
 
+.skillButtons {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 20px;
+}
+
 .addSkillButton {
   margin-left: 220px;
 }

@@ -40,7 +40,7 @@ const Dashboard = () => {
         <div>
           <Link className="button" to="/skills">Browse Users</Link>
           <Link className="button" to="/profile">Your Skills</Link>
-          <Link className="button" to="/profile">SwapRequests</Link>
+          <Link className="button" to="/profile/swap-requests">SwapRequests</Link>
         </div>
       </header>
 
