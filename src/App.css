@@ -117,16 +117,6 @@ nav {
   padding-right: 40px;
 }
 
-.signOut {
-  background-color: transparent;
-  color: #007bff;
-  text-decoration: none;
-}
-
-button.signOut:hover, button.signOut:focus {
-  text-decoration: none;
-}
-
 /* Nav links */
 .main-nav li a {
   color: #007bff;
