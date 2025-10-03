@@ -1,7 +1,26 @@
 <img width="3012" height="1572" alt="image" src="https://github.com/user-attachments/assets/569b1142-93c3-4625-8992-bc2757b4eb79" />
 
 
+## [SkillSwap][site] : Deployed app
+
+[site]: https://spontaneous-smakager-8133bf.netlify.app/
+
 SkillSwap, built with Node.js and Express.
+
+SkillSwap is a community building app that allows users to barter skills training amongst them and other users. A user can sign up and create a profile adding the skills they have to offer as well as the skills they want to learn. Then they can browse other users and their skills, search by skill name, category, or location. 
+Once they select a skill-set and user they can start a SwapRequest, that will be sent to the selected user for them to Accept/Decline and then with orboth can change the status to in-progress or complete as they move along. 
+
+### Plannig materials
+> [Trello board][site] for user stories, concept wireframes, and ERD.
+
+[site]: https://trello.com/b/FlkZUYks/hjl-group-skillswap
+
+### Next Steps
+* Light and dark modes for more adaptive views.  
+* Additional criteria and details on Skills and Users.
+* Communicate/Send messages outside of the requests process.
+* Allow users to mark the completed skills of their wanted lists , change thy skill level, and option to add it to their offered skills if they feel they know enough of it. 
+
 
 ## What's included
 
