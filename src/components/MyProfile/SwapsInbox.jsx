@@ -2,7 +2,7 @@
 import { useState} from 'react';
 import { useEffect } from 'react';
 import { useContext } from 'react';
-
+import { useNavigate } from 'react-router';
 
 import { UserContext } from '../../contexts/UserContext';
 import {
@@ -10,12 +10,14 @@ import {
   getSentRequests,
   acceptRequest,
   declineRequest, 
-  updateSwapStatus
+  updateSwapStatus,
+  deleteSwapRequest
 } from '../../services/swapRequestsService';
 
 const SwapsInbox = () => {
   const { token, currentUser } = useContext(UserContext);
   const [requests, setRequests] = useState([]);
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [responseMessages, setResponseMessages] = useState({});
 
@@ -63,15 +65,35 @@ const SwapsInbox = () => {
   try {
     const res = await updateSwapStatus(id, newStatus, token);
     setRequests(prev => prev.map(r => (r._id === id ? res.data : r)));
-  } catch (err) {
-    console.error(`Error updating status to ${newStatus}:`, err.message);
-  }
-};
+    } catch (err) {
+      console.error(`Error updating status to ${newStatus}:`, err.message);
+    }
+  };
 
+  const handleEdit = (request) => {
+    navigate(`/swap-request/${request.skillProvider._id}`, {
+    state: { selected: request }
+  });
+  };
+
+  const handleDelete = async (requestId) => {
+  if (!window.confirm("Are you sure you want to delete this request?")) return;
+
+  try {
+    await deleteSwapRequest(requestId, token);
+    setRequests(prev => prev.filter(r => r._id !== requestId));
+  } catch (err) {
+    console.error("Error deleting request:", err.message);
+  }
+  };
 
   const renderRequestCard = (request) => (
+    
     <div className='card' key={request._id} style={{ border: '1px solid #ccc', padding: '1rem', marginBottom: '1rem' }}>
-      <p><strong>From:</strong> {request.requester?.username}</p>
+      <p><strong>From:</strong> {request.requester?.username || 'Unknown'}</p>
+      <p><strong>To:</strong> {request.skillProvider?.username || 'Unknown'}</p>
+      <p style={{ fontSize: '0.9rem', color: '#888' }}>
+     🕓 Requested on {new Date(request.createdAt).toLocaleDateString()}</p>
       <p><strong>Requested Skill:</strong> {request.skillRequested?.skillName}</p>
       <p><strong>Offered Skill:</strong> {request.skillOffered?.skillName}</p>
       <p><strong>Message:</strong> {request.requestMessage}</p>
@@ -83,7 +105,14 @@ const SwapsInbox = () => {
         {request.status === 'completed' && <span style={{ color: '#264653' }}>🏁 Completed</span>}
         {request.status === 'declined' && <span style={{ color: '#e76f51' }}>❌ Declined</span>}
 
+        {request.requester?._id === currentUser?._id && request.status === 'pending' && (
+          <div style={{ marginTop: '0.5rem' }}>
+            <button onClick={() => handleEdit(request)}>✏️ Edit</button>
+            <button onClick={() => handleDelete(request._id)}>🗑️ Delete</button>
+          </div>
+        )}
       
+
     {request.status === 'pending' && request.requester?._id !== currentUser?._id && (
       <>
         <textarea
@@ -114,7 +143,7 @@ const SwapsInbox = () => {
   </div>
   );
 
-
+ 
   if (loading) return <p>Loading your inbox...</p>;
   if (!requests.length) return <p>No swap requests yet!</p>;
 
@@ -124,12 +153,20 @@ const SwapsInbox = () => {
   return (
     <div>
       <h2>🆕 New Requests</h2>
-      {newRequests.length ? newRequests.map(renderRequestCard) : <p>No new requests.</p>}
+      {newRequests.length ? (
+        [...newRequests]
+          .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+          .map(renderRequestCard)
+      ) : (
+        <p>No new requests.</p>
+      )}
 
       <h2 style={{ marginTop: '2rem' }}>📁 Past Requests</h2>
       {pastRequests.length ? pastRequests.map(renderRequestCard) : <p>No past requests yet.</p>}
     </div>
+    
   );
+  
 };
 
 export default SwapsInbox;

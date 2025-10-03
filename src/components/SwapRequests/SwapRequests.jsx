@@ -23,6 +23,8 @@ const SwapRequest = (props) => {
         requestMessage:'',
         responseMessage:''
     }
+    
+    const [successMessage, setSuccessMessage] = useState('');
 
     const [formData, setFormData] = useState(
         props.selected ? props.selected : initialState
@@ -43,25 +45,35 @@ const SwapRequest = (props) => {
     };
 
     const handleSubmit = async (evt) => {
-        evt.preventDefault()
-    
-        const payload = {
-            skillRequestedId: formData.skillRequested,
-            skillOfferedId: formData.skillOffered,
-            comments: formData.comments,
-            requestMessage: formData.requestMessage
-        };
+    evt.preventDefault();
 
-        try {
-            const res = await createSwapRequest(payload, token);
-            console.log("Swap request sent:", res.data);
+    const payload = {
+        skillRequestedId: formData.skillRequested,
+        skillOfferedId: formData.skillOffered,
+        comments: formData.comments,
+        requestMessage: formData.requestMessage
+    };
+
+    try {
+        const res = await createSwapRequest(payload, token);
+        console.log("Swap request sent:", res.data);
+        setSuccessMessage('✅ Your request was sent successfully!');
         
-        } catch (err) {
-            console.error("Error sending swap request:", err.message);
-        }
+        setTimeout(() => {
+        navigate("/profile/swap-requests");
+        }, 1500); // 1.5 second delay
+    } catch (err) {
+        console.error("Error sending swap request:", err.message);
+        setSuccessMessage('❌ Something went wrong. Please try again.');
     }
+    };
 return (
     <div>
+        {successMessage && (
+  <div className="success-banner" style={{ marginBottom: '1rem', color: 'green' }}>
+    {successMessage}
+  </div>
+)}
         <form onSubmit={handleSubmit}>
             <p className="swapForm"><strong>From:</strong> {props.currentUser?.username}</p>
             <p className="swapForm"><strong>To:</strong> {recipientUser?.username}</p>
@@ -114,7 +126,7 @@ return (
                     placeholder="Add any additional info about yourrequest and offering, for your Swap's recipient"
                 />
             <div style={{ marginTop: '1rem' }}>
-                <button type="submit" onClick={() => navigate('/profile/swap-requests')}>Send Request</button>
+                <button type="submit">Send Request</button>
                 <button type="button" onClick={() => navigate('/skills')}>
                     Cancel
                 </button>
