@@ -131,6 +131,7 @@ const App = () => {
               <Route path="/swap-request/:id" element={<SwapRequestApp />} />
               <Route path="/skills/new/:type" element={<AddSkillForm handleAddSkill={handleAddSkill} />} />
               <Route path="/skills/edit/:skillId/:type" element={<AddSkillForm handleUpdateSkill={handleUpdateSkill} />} />
+              <Route path="/swap-request/edit" element={<SwapRequest />} />
     </>
         ) : ( 
           <>

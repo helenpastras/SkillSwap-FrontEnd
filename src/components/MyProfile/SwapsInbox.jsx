@@ -1,8 +1,9 @@
 
-import { useState} from 'react';
+import { useState } from 'react';
 import { useEffect } from 'react';
 import { useContext } from 'react';
 import { useNavigate } from 'react-router';
+
 
 import { UserContext } from '../../contexts/UserContext';
 import {
@@ -15,7 +16,7 @@ import {
 } from '../../services/swapRequestsService';
 
 const SwapsInbox = () => {
-  const { token, currentUser } = useContext(UserContext);
+  const { token, user } = useContext(UserContext);
   const [requests, setRequests] = useState([]);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
@@ -87,8 +88,13 @@ const SwapsInbox = () => {
   }
   };
 
-  const renderRequestCard = (request) => (
-    
+  const renderRequestCard = (request) => {
+    console.log("request.requester._id:", request.requester?._id);
+    console.log("user._id:", user?._id);
+    console.log("Match:", String(request.requester?._id) === String(user?._id));
+
+  return (
+  
     <div className='card' key={request._id} style={{ border: '1px solid #ccc', padding: '1rem', marginBottom: '1rem' }}>
       <p><strong>From:</strong> {request.requester?.username || 'Unknown'}</p>
       <p><strong>To:</strong> {request.skillProvider?.username || 'Unknown'}</p>
@@ -105,15 +111,15 @@ const SwapsInbox = () => {
         {request.status === 'completed' && <span style={{ color: '#264653' }}>🏁 Completed</span>}
         {request.status === 'declined' && <span style={{ color: '#e76f51' }}>❌ Declined</span>}
 
-        {request.requester?._id === currentUser?._id && request.status === 'pending' && (
-          <div style={{ marginTop: '0.5rem' }}>
-            <button onClick={() => handleEdit(request)}>✏️ Edit</button>
-            <button onClick={() => handleDelete(request._id)}>🗑️ Delete</button>
-          </div>
-        )}
-      
+      {String(request.requester?._id) === String(user?._id) && request.status === 'pending' && (
+        <div style={{ marginTop: '0.5rem' }}>
+          <p><em>Waiting for response from {request.skillProvider?.username}</em></p>
+          <button onClick={() => handleEdit(request)}>✏️ Edit</button>
+          <button onClick={() => handleDelete(request._id)}>🗑️ Delete</button>
+        </div>
+      )}
 
-    {request.status === 'pending' && request.requester?._id !== currentUser?._id && (
+    {request.status === 'pending' && request.requester?._id !== user?._id && (
       <>
         <textarea
           placeholder="You can add a response message (optional)."
@@ -127,9 +133,6 @@ const SwapsInbox = () => {
       </>
     )}
 
-    {request.status === 'pending' && request.requester?._id === currentUser?._id && (
-      <p><em>Waiting for response from {request.skillProvider?.username}</em></p>
-    )}
 
     {['accepted', 'in-progress'].includes(request.status) && (
       <div style={{ marginTop: '1rem' }}>
@@ -139,12 +142,14 @@ const SwapsInbox = () => {
         )}
         <button onClick={() => handleStatusUpdate(request._id, 'completed')}>Mark Completed</button>
       </div>
+      
     )}
   </div>
   );
+  };
 
  
-  if (loading) return <p>Loading your inbox...</p>;
+ if (loading || !user?._id) return <p>Loading your inbox...</p>;
   if (!requests.length) return <p>No swap requests yet!</p>;
 
   const newRequests = requests.filter(r => r.status === 'pending');
