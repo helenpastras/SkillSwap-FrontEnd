@@ -4,12 +4,15 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import { useContext } from "react"
 import { UserContext } from "../../contexts/UserContext"
+import { useLocation } from 'react-router';
 
 
-import {createSwapRequest} from '../../services/swapRequestsService';;
+import {createSwapRequest, updateSwapRequest} from '../../services/swapRequestsService';;
 
 const SwapRequest = (props) => {
     const navigate = useNavigate();
+    const location = useLocation();
+    const selected = location.state?.selected;
     const { token } = useContext(UserContext);
     const { recipientUser } = props;
 
@@ -25,48 +28,62 @@ const SwapRequest = (props) => {
     }
     
     const [successMessage, setSuccessMessage] = useState('');
+    
 
-    const [formData, setFormData] = useState(
-        props.selected ? props.selected : initialState
-    )
+    const [formData, setFormData] = useState(selected || initialState);
         useEffect(() => {
-        if (!props.selected && props.currentUser && recipientUser) {
-        setFormData(prev => ({
-            ...prev,
-            requester: props.currentUser._id,
-            skillProvider: recipientUser._id
-        }));
-        }
-        }, [props.selected, props.currentUser, recipientUser]);
+            if (selected) {
+                const normalized = {
+                ...selected,
+                skillRequested: selected.skillRequested?._id || '',
+                skillOffered: selected.skillOffered?._id || '',
+                };
+                setFormData(normalized);
+            } else if (props.currentUser && props.recipientUser) {
+                setFormData(prev => ({
+                ...prev,
+                requester: props.currentUser._id,
+                skillProvider: props.recipientUser._id
+                }));
+            }
+            }, [selected, props.currentUser, props.recipientUser]);
+            console.log("Normalized formData:", formData);
 
 
     const handleChange = (evt) => {
         setFormData({ ...formData, [evt.target.name]: evt.target.value})
     };
 
-    const handleSubmit = async (evt) => {
-    evt.preventDefault();
+    const isEditing = !!selected;
+const handleSubmit = async (evt) => {
+  evt.preventDefault();
 
-    const payload = {
-        skillRequestedId: formData.skillRequested,
-        skillOfferedId: formData.skillOffered,
-        comments: formData.comments,
-        requestMessage: formData.requestMessage
-    };
+  const payload = {
+    skillRequestedId: formData.skillRequested,
+    skillOfferedId: formData.skillOffered,
+    comments: formData.comments,
+    requestMessage: formData.requestMessage
+  };
+    console.log("skillRequested:", formData.skillRequested);
+    console.log("skillOffered:", formData.skillOffered);
 
-    try {
-        const res = await createSwapRequest(payload, token);
-        console.log("Swap request sent:", res.data);
-        setSuccessMessage('✅ Your request was sent successfully!');
-        
-        setTimeout(() => {
-        navigate("/profile/swap-requests");
-        }, 1500); // 1.5 second delay
-    } catch (err) {
-        console.error("Error sending swap request:", err.message);
-        setSuccessMessage('❌ Something went wrong. Please try again.');
+  try {
+    if (isEditing) {
+      await updateSwapRequest(selected._id, payload, token);
+      setSuccessMessage('✅ Your request was updated!');
+    } else {
+      await createSwapRequest(payload, token);
+      setSuccessMessage('✅ Your request was sent!');
     }
-    };
+
+    setTimeout(() => {
+      navigate("/profile/swap-requests");
+    }, 1500);
+  } catch (err) {
+    console.error("Error:", err.message);
+    setSuccessMessage('❌ Something went wrong. Please try again.');
+  }
+};
 return (
     <div>
         {successMessage && (
@@ -74,7 +91,16 @@ return (
     {successMessage}
   </div>
 )}
-        <form onSubmit={handleSubmit}>
+    
+        {selected && (
+        <div style={{ marginBottom: '1rem', color: '#555' }}>
+            ✏️ <strong>Editing your request</strong> — you can update the skills, message, or comments.
+            <p style={{ fontSize: '0.9rem', color: '#888', marginTop: '0.5rem' }}>
+            Previously requested: <strong>{selected.skillRequested?.skillName || '—'}</strong> ↔️ Offered: <strong>{selected.skillOffered?.skillName || '—'}</strong>
+            </p>
+        </div>
+        )}
+    <form onSubmit={handleSubmit}>
             <p className="swapForm"><strong>From:</strong> {props.currentUser?.username}</p>
             <p className="swapForm"><strong>To:</strong> {recipientUser?.username}</p>
 
@@ -126,7 +152,7 @@ return (
                     placeholder="Add any additional info about yourrequest and offering, for your Swap's recipient"
                 />
             <div style={{ marginTop: '1rem' }}>
-                <button type="submit">Send Request</button>
+                <button type="submit">{isEditing ? 'Update Request' : 'Send Request'}</button>
                 <button type="button" onClick={() => navigate('/skills')}>
                     Cancel
                 </button>

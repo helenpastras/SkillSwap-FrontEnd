@@ -34,7 +34,15 @@ export const declineRequest = async (id, responseMessage, token) => {
 };
 
 export const deleteSwapRequest = async (requestId, token) => {
-  return await axios.delete(`${BASE_URL}/api/swap-requests/${requestId}`, {
+  return await axios.delete(`${BASE_URL}/swap-requests/${requestId}`, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  });
+};
+
+export const updateSwapRequest = async (requestId, payload, token) => {
+  return await axios.put(`${BASE_URL}/swap-requests/${requestId}`, payload, {
     headers: {
       Authorization: `Bearer ${token}`
     }

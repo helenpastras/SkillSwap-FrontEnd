@@ -60,7 +60,7 @@ const AddSkillForm = ({ handleAddSkill, handleUpdateSkill }) => {
                         onChange={handleChange} 
                         required
                     />
-                <label htmlFor="category">Category</label>
+                <label htmlFor="category"> Category </label>
                     <select
                         id="category"
                         name="category"
@@ -79,7 +79,7 @@ const AddSkillForm = ({ handleAddSkill, handleUpdateSkill }) => {
                         </option>
                     ))}
                     </select>
-                <label htmlFor="skillLevel">Level of Expertise</label>
+                <label htmlFor="skillLevel"> Level of Expertise </label>
                     <select
                         id="skillLevel"
                         name="skillLevel"
@@ -96,7 +96,7 @@ const AddSkillForm = ({ handleAddSkill, handleUpdateSkill }) => {
                         </option>
                     ))}
                     </select>
-                <label htmlFor="timeFrame">Time required to teach skill</label>
+                <label htmlFor="timeFrame"> Time required to teach skill </label>
                     <select
                         id="timeFrame"
                         name="timeFrame"
